@@ -1,101 +1,78 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 interface HomeProps {
   setPage: (page: string) => void;
 }
 
 const Home: React.FC<HomeProps> = ({ setPage }) => {
-  const glitchText = (text: string) => {
-    return text.split('').map((char, i) => (
-      <motion.span
-        key={i}
-        initial={{ opacity: 0, filter: "blur(10px)" }}
-        animate={{ opacity: 1, filter: "blur(0px)" }}
-        transition={{ duration: 0.1, delay: i * 0.05 + 0.5 }}
-        className="inline-block"
-      >
-        {char}
-      </motion.span>
-    ));
-  };
-
   return (
-    <motion.div
-      key="home"
-      className="flex flex-col lg:flex-row items-center justify-center min-h-[70vh] gap-12"
-      exit={{ opacity: 0 }}
-    >
-      <div className="flex-1 space-y-8 z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 border border-cobalt/30 bg-cobalt/5 text-cobalt text-[10px] font-mono tracking-widest uppercase">
-          <div className="w-1 h-1 bg-cobalt rounded-full animate-pulse"></div>
-          Production Node: 1.4nm
+    <div className="max-w-[1600px] mx-auto min-h-[80vh] flex flex-col justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+        
+        {/* Left Column - Headline */}
+        <div className="lg:col-span-8">
+           <motion.div
+             initial={{ opacity: 0, y: 40 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+           >
+             <div className="inline-flex items-center gap-3 mb-8 bg-paper px-4 py-2 rounded-full border border-concrete">
+               <span className="w-2 h-2 bg-signal rounded-full animate-pulse"></span>
+               <span className="text-xs font-mono text-onyx/60 uppercase tracking-wider">Node 1.4nm Available</span>
+             </div>
+             
+             <h1 className="text-7xl md:text-9xl font-extrabold tracking-tighter text-onyx leading-[0.9] mb-8">
+               Silicon <br/>
+               <span className="text-onyx/20">Refined.</span>
+             </h1>
+           </motion.div>
         </div>
-        
-        <h1 className="text-6xl md:text-9xl font-bold leading-[0.85] tracking-tighter mix-blend-difference">
-          {glitchText("SILICON")} <br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-transparent">
-            {glitchText("ARCHITECT")}
-          </span>
-        </h1>
 
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="max-w-md text-white/60 font-mono text-sm leading-relaxed border-l border-cobalt pl-4"
-        >
-          Engineered for the Exascale Era. We fabricate the neural substrate for next-generation machine intelligence.
-          <br/><br/>
-          // STATUS: FABRICATION ACTIVE
-        </motion.p>
-        
-        <motion.button 
-           onClick={() => setPage('specs')}
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           transition={{ delay: 1.2 }}
-           className="group flex items-center gap-4 interactive"
-        >
-           <div className="h-12 w-12 border border-white/20 flex items-center justify-center group-hover:bg-cobalt group-hover:border-cobalt transition-all">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover:rotate-45 transition-transform duration-500">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-           </div>
-           <span className="font-mono text-xs tracking-widest group-hover:text-cobalt transition-colors">INITIATE_BLUEPRINT</span>
-        </motion.button>
+        {/* Right Column - Description & CTA */}
+        <div className="lg:col-span-4 lg:mb-4">
+           <motion.p 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ delay: 0.4 }}
+             className="text-lg md:text-xl text-onyx/60 font-medium leading-relaxed mb-8"
+           >
+             We engineer the invisible infrastructure of intelligence. 
+             A reductionist approach to maximum computation.
+           </motion.p>
+           
+           <motion.button 
+             onClick={() => setPage('specs')}
+             whileHover={{ scale: 1.02 }}
+             whileTap={{ scale: 0.98 }}
+             className="group bg-onyx text-white px-8 py-4 rounded-full flex items-center gap-4 text-sm font-bold tracking-wide interactive"
+           >
+             View Technical Data
+             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+           </motion.button>
+        </div>
       </div>
 
-      <div className="flex-1 w-full flex items-center justify-center perspective-1000">
-        <motion.div 
-           initial={{ rotateX: 60, rotateZ: 0, scale: 0.8, opacity: 0 }}
-           animate={{ rotateX: 50, rotateZ: 360, scale: 1, opacity: 1 }}
-           transition={{ 
-             rotateZ: { duration: 20, repeat: Infinity, ease: "linear" },
-             opacity: { duration: 1 }
-           }}
-           className="relative w-64 h-64 md:w-96 md:h-96 preserve-3d"
-        >
-           {/* WAFER LAYERS */}
-           <div className="absolute inset-0 rounded-full border border-white/10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 to-transparent backdrop-blur-sm"></div>
-           <div className="absolute inset-4 rounded-full border border-dashed border-cobalt/30 animate-spin-slow" style={{ animationDirection: 'reverse' }}></div>
-           <div className="absolute inset-12 rounded-full border border-white/5"></div>
-           
-           {/* Holographic Shine */}
-           <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-20" style={{ transform: 'translateZ(20px)' }}></div>
-           
-           {/* Central Chip */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-obsidian border border-cobalt shadow-[0_0_30px_rgba(0,71,171,0.4)] flex items-center justify-center" style={{ transform: 'translateZ(40px)' }}>
-              <div className="w-16 h-16 border border-white/10 grid grid-cols-4 gap-px bg-white/5">
-                 {Array.from({ length: 16 }).map((_, i) => (
-                    <div key={i} className="bg-cobalt/20"></div>
-                 ))}
-              </div>
-           </div>
-        </motion.div>
+      {/* Bottom Visual - Minimalist Wafer Representation */}
+      <div className="mt-32 w-full h-[400px] bg-paper rounded-3xl border border-concrete relative overflow-hidden flex items-center justify-center">
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent opacity-50"></div>
+         {/* Animated Rings */}
+         <motion.div 
+           animate={{ rotate: 360 }}
+           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+           className="w-[600px] h-[600px] border border-onyx/5 rounded-full absolute" 
+         />
+         <motion.div 
+           animate={{ rotate: -360 }}
+           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+           className="w-[400px] h-[400px] border border-onyx/10 rounded-full absolute border-dashed" 
+         />
+         <div className="w-32 h-32 bg-white shadow-2xl rounded-2xl border border-concrete flex items-center justify-center relative z-10">
+            <div className="w-16 h-16 bg-onyx rounded-full"></div>
+         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
-
 export default Home;

@@ -2,68 +2,55 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Contact: React.FC = () => {
-  const [logs, setLogs] = useState<string[]>([
-    "> INITIALIZING UPLINK...",
-    "> CONNECTING TO SECURE SERVER [127.0.0.1]...",
-    "> READY FOR TRANSMISSION."
-  ]);
-  const [input, setInput] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-     e.preventDefault();
-     if(!input.trim()) return;
-     setLogs(prev => [...prev, `> USER: ${input}`, "> TRANSMITTING...", "> DATA RECEIVED. STANDBY."]);
-     setInput("");
-  };
-
   return (
-    <motion.div 
-       key="contact"
-       className="max-w-4xl mx-auto w-full min-h-[60vh] flex flex-col justify-center"
-       exit={{ opacity: 0 }}
-    >
-       <div className="bg-[#0A0A0A] border border-white/10 p-2 rounded-sm shadow-2xl">
-          {/* Terminal Header */}
-          <div className="bg-white/5 p-3 flex justify-between items-center border-b border-white/5">
-             <div className="text-xs font-mono text-white/50">ROOT@NEXUS:~</div>
-             <div className="flex gap-2">
-                <div className="w-3 h-3 bg-white/10 hover:bg-red-500 transition-colors"></div>
-                <div className="w-3 h-3 bg-white/10 hover:bg-yellow-500 transition-colors"></div>
-             </div>
-          </div>
+    <div className="max-w-2xl mx-auto pt-20 min-h-[60vh] flex flex-col justify-center">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+         <h1 className="text-5xl font-bold text-onyx mb-4 tracking-tighter">Dialogue</h1>
+         <p className="text-onyx/50 mb-12 text-lg">Initiate secure transmission.</p>
+         
+         <form className="space-y-12">
+            <div className="group relative">
+               <input 
+                 type="text" 
+                 className="w-full bg-transparent border-b border-concrete py-4 text-xl text-onyx outline-none focus:border-signal transition-colors placeholder-transparent"
+                 placeholder="Name" 
+                 id="name"
+               />
+               <label htmlFor="name" className="absolute left-0 top-4 text-onyx/30 text-xl transition-all pointer-events-none group-focus-within:-top-6 group-focus-within:text-xs group-focus-within:text-signal group-focus-within:font-mono">NAME</label>
+            </div>
+            
+            <div className="group relative">
+               <input 
+                 type="email" 
+                 className="w-full bg-transparent border-b border-concrete py-4 text-xl text-onyx outline-none focus:border-signal transition-colors placeholder-transparent"
+                 placeholder="Email" 
+                 id="email"
+               />
+               <label htmlFor="email" className="absolute left-0 top-4 text-onyx/30 text-xl transition-all pointer-events-none group-focus-within:-top-6 group-focus-within:text-xs group-focus-within:text-signal group-focus-within:font-mono">EMAIL_ADDRESS</label>
+            </div>
 
-          {/* Terminal Body */}
-          <div className="p-8 h-[400px] font-mono text-sm overflow-y-auto flex flex-col relative">
-             {/* Scanlines */}
-             <div className="absolute inset-0 bg-[linear-gradient(rgba(18,18,18,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,6px_100%] pointer-events-none z-10 opacity-20"></div>
-             
-             <div className="space-y-2 text-white/70 z-0">
-                {logs.map((log, i) => (
-                   <div key={i} className={log.includes("USER") ? "text-cobalt" : ""}>{log}</div>
-                ))}
-             </div>
-             
-             <form className="mt-auto flex items-center gap-2 pt-4 border-t border-white/5 z-20" onSubmit={handleSubmit}>
-                <span className="text-cobalt blink">_</span>
-                <input 
-                   type="text" 
-                   value={input}
-                   onChange={(e) => setInput(e.target.value)}
-                   className="bg-transparent border-none outline-none flex-1 text-white font-bold"
-                   placeholder="ENTER COMMAND OR MESSAGE..."
-                   autoFocus
-                />
-                <button type="submit" className="text-xs text-white/30 hover:text-white uppercase interactive">[SEND]</button>
-             </form>
-          </div>
-       </div>
-       
-       <div className="mt-8 flex justify-between text-xs font-mono text-white/30">
-          <div>ENCRYPTION: ACTIVE</div>
-          <div>IP: MASKED</div>
-       </div>
-    </motion.div>
+            <div className="group relative">
+               <textarea 
+                 rows={1}
+                 className="w-full bg-transparent border-b border-concrete py-4 text-xl text-onyx outline-none focus:border-signal transition-colors placeholder-transparent resize-none"
+                 placeholder="Message" 
+                 id="message"
+               />
+               <label htmlFor="message" className="absolute left-0 top-4 text-onyx/30 text-xl transition-all pointer-events-none group-focus-within:-top-6 group-focus-within:text-xs group-focus-within:text-signal group-focus-within:font-mono">INQUIRY</label>
+            </div>
+
+            <div className="pt-8">
+               <button className="text-sm font-bold tracking-widest uppercase border-b-2 border-onyx pb-1 hover:text-signal hover:border-signal transition-colors">
+                  Send Message ->
+               </button>
+            </div>
+         </form>
+      </motion.div>
+    </div>
   );
 };
-
 export default Contact;

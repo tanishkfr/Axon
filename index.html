@@ -3,58 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AXON | Precision Silicon</title>
+    <title>AXON | Silicon Air</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              onyx: '#111111',       // Primary Text
-              paper: '#F5F5F7',      // Secondary Background
-              surface: '#FFFFFF',    // Primary Background
-              signal: '#FF4D00',     // New Accent (International Orange)
-              concrete: '#E5E5E5',   // Borders
-              vapor: 'rgba(0, 0, 0, 0.04)', // Subtle hovers
+              onyx: '#1D1D1F',       // Apple's "Almost Black"
+              paper: '#F5F5F7',      // Apple's "Light Gray" background
+              surface: '#FFFFFF',    // Pure White
+              azure: '#2997FF',      // The new "Light-ish Blue" accent
+              concrete: '#D2D2D7',   // Borders
             },
             fontFamily: {
-              sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
-              mono: ['JetBrains Mono', 'Menlo', 'monospace'],
+              sans: ['SF Pro Display', 'Inter', '-apple-system', 'system-ui', 'sans-serif'],
+              mono: ['SF Mono', 'Menlo', 'monospace'],
             },
             letterSpacing: {
-              tighter: '-0.05em',
-              tight: '-0.03em',
+              tighter: '-0.03em',
+              tight: '-0.01em',
               normal: '0em',
             },
-            backgroundImage: {
-              'noise': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MDAlJyBoZWlnaHQ9JzQwMCUnPjxmaWx0ZXIgaWQ9J25vaXNlJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC44JyBudW1PY3RhdmVzPSczJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsdGVyPSd1cmwoI25vaXNlKScgb3BhY2l0eT0nMC4wMycvPjwvc3ZnPg==')",
-            }
           },
         },
       };
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
       body {
         background-color: #FFFFFF;
-        color: #111111;
-        cursor: none; /* Custom cursor remains, but we will style it black */
-        overflow: hidden;
+        color: #1D1D1F;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden; /* Prevent horizontal scroll */
       }
-      ::selection {
-        background: rgba(255, 77, 0, 0.2); /* Signal Orange Highlight */
-        color: #111111;
-      }
+      /* Hide scrollbar but allow scrolling */
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      
-      .glass-panel {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-      }
     </style>
   <script type="importmap">
 {

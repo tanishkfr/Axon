@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { NAV_ITEMS } from '../constants';
 
 interface NavbarProps {
@@ -8,38 +8,48 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0;
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
     <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center"
+      variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+      className="fixed top-0 left-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-gray-200/50"
     >
-      <div className="glass-panel px-6 py-3 rounded-full flex items-center gap-12 interactive">
-        <button onClick={() => setPage('home')} className="flex items-center gap-2 group">
-           <div className="w-3 h-3 bg-signal rounded-full group-hover:scale-125 transition-transform duration-300"></div>
-           <span className="font-bold text-lg tracking-tight text-onyx">AXON</span>
+      <div className="max-w-[1400px] mx-auto px-6 h-12 flex justify-between items-center">
+        {/* Logo Area */}
+        <button onClick={() => setPage('home')} className="text-lg font-bold tracking-tight text-onyx hover:opacity-70 transition-opacity">
+           AXON
         </button>
 
-        <div className="hidden md:flex gap-8">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activePage === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setPage(item.id)}
-                className={`text-xs font-medium tracking-wide transition-colors ${isActive ? 'text-onyx' : 'text-onyx/40 hover:text-onyx'}`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
+        {/* Links */}
+        <div className="hidden md:flex gap-8 text-xs font-medium">
+          {NAV_ITEMS.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setPage(item.id)}
+              className={`transition-colors ${activePage === item.id ? 'text-onyx' : 'text-gray-500 hover:text-azure'}`}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
-      </div>
 
-      <div className="glass-panel px-4 py-3 rounded-full">
-         <button className="text-xs font-mono text-onyx/50 hover:text-signal transition-colors interactive">
-            MENU +
-         </button>
+        {/* CTA */}
+        <button onClick={() => setPage('contact')} className="bg-onyx text-white text-xs px-3 py-1 rounded-full font-medium hover:bg-gray-800 transition-colors">
+           Contact Sales
+        </button>
       </div>
     </motion.nav>
   );

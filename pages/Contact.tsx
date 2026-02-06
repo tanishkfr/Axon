@@ -1,55 +1,97 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
-    <div className="max-w-2xl mx-auto pt-20 min-h-[60vh] flex flex-col justify-center">
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-         <h1 className="text-5xl font-bold text-onyx mb-4 tracking-tighter">Dialogue</h1>
-         <p className="text-onyx/50 mb-12 text-lg">Initiate secure transmission.</p>
+    <div className="bg-surface pt-32 pb-20 px-6 min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20">
          
-         <form className="space-y-12">
-            <div className="group relative">
-               <input 
-                 type="text" 
-                 className="w-full bg-transparent border-b border-concrete py-4 text-xl text-onyx outline-none focus:border-signal transition-colors placeholder-transparent"
-                 placeholder="Name" 
-                 id="name"
-               />
-               <label htmlFor="name" className="absolute left-0 top-4 text-onyx/30 text-xl transition-all pointer-events-none group-focus-within:-top-6 group-focus-within:text-xs group-focus-within:text-signal group-focus-within:font-mono">NAME</label>
-            </div>
-            
-            <div className="group relative">
-               <input 
-                 type="email" 
-                 className="w-full bg-transparent border-b border-concrete py-4 text-xl text-onyx outline-none focus:border-signal transition-colors placeholder-transparent"
-                 placeholder="Email" 
-                 id="email"
-               />
-               <label htmlFor="email" className="absolute left-0 top-4 text-onyx/30 text-xl transition-all pointer-events-none group-focus-within:-top-6 group-focus-within:text-xs group-focus-within:text-signal group-focus-within:font-mono">EMAIL_ADDRESS</label>
-            </div>
+         {/* LEFT: INFO */}
+         <div>
+            <h1 className="text-5xl font-bold tracking-tight text-onyx mb-6">
+               Initiate<br/>Partnership.
+            </h1>
+            <p className="text-xl text-gray-500 mb-12 font-medium">
+               Secure high-volume allocation for the A-1400 node. Our engineering team is ready to validate your architecture.
+            </p>
 
-            <div className="group relative">
-               <textarea 
-                 rows={1}
-                 className="w-full bg-transparent border-b border-concrete py-4 text-xl text-onyx outline-none focus:border-signal transition-colors placeholder-transparent resize-none"
-                 placeholder="Message" 
-                 id="message"
-               />
-               <label htmlFor="message" className="absolute left-0 top-4 text-onyx/30 text-xl transition-all pointer-events-none group-focus-within:-top-6 group-focus-within:text-xs group-focus-within:text-signal group-focus-within:font-mono">INQUIRY</label>
-            </div>
+            <div className="space-y-8">
+               <div className="flex items-start gap-6">
+                  <div className="w-12 h-12 bg-paper rounded-full flex items-center justify-center shrink-0">
+                     <Mail className="w-5 h-5 text-onyx" />
+                  </div>
+                  <div>
+                     <h3 className="font-bold text-onyx">Enterprise Sales</h3>
+                     <p className="text-gray-500 text-sm">foundry@axon.com</p>
+                  </div>
+               </div>
+               
+               <div className="flex items-start gap-6">
+                  <div className="w-12 h-12 bg-paper rounded-full flex items-center justify-center shrink-0">
+                     <Phone className="w-5 h-5 text-onyx" />
+                  </div>
+                  <div>
+                     <h3 className="font-bold text-onyx">Global Support</h3>
+                     <p className="text-gray-500 text-sm">+1 (800) 555-0199</p>
+                  </div>
+               </div>
 
-            <div className="pt-8">
-               <button className="text-sm font-bold tracking-widest uppercase border-b-2 border-onyx pb-1 hover:text-signal hover:border-signal transition-colors">
-                  Send Message ->
+               <div className="flex items-start gap-6">
+                  <div className="w-12 h-12 bg-paper rounded-full flex items-center justify-center shrink-0">
+                     <MapPin className="w-5 h-5 text-onyx" />
+                  </div>
+                  <div>
+                     <h3 className="font-bold text-onyx">Headquarters</h3>
+                     <p className="text-gray-500 text-sm">
+                        Tech Park IV, Bengaluru<br/>
+                        Karnataka, India 560045
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         {/* RIGHT: FORM */}
+         <div className="bg-paper rounded-3xl p-10 lg:p-12">
+            <form className="space-y-8">
+               <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                     <label className="text-xs font-bold text-onyx uppercase tracking-wide">First Name</label>
+                     <input type="text" className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-azure transition-colors" />
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-xs font-bold text-onyx uppercase tracking-wide">Last Name</label>
+                     <input type="text" className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-azure transition-colors" />
+                  </div>
+               </div>
+               
+               <div className="space-y-2">
+                  <label className="text-xs font-bold text-onyx uppercase tracking-wide">Corporate Email</label>
+                  <input type="email" className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-azure transition-colors" />
+               </div>
+
+               <div className="space-y-2">
+                  <label className="text-xs font-bold text-onyx uppercase tracking-wide">Inquiry Type</label>
+                  <select className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-azure transition-colors">
+                     <option>Volume Fabrication</option>
+                     <option>IP Licensing</option>
+                     <option>Investor Relations</option>
+                  </select>
+               </div>
+
+               <div className="space-y-2">
+                  <label className="text-xs font-bold text-onyx uppercase tracking-wide">Message</label>
+                  <textarea rows={4} className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-azure transition-colors"></textarea>
+               </div>
+
+               <button type="button" className="w-full bg-onyx text-white font-bold py-4 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+                  TRANSMIT REQUEST <ArrowRight size={16} />
                </button>
-            </div>
-         </form>
-      </motion.div>
+            </form>
+         </div>
+
+      </div>
     </div>
   );
 };

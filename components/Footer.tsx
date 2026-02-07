@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Twitter, Linkedin, Github, Lock, X, ShieldAlert } from 'lucide-react';
+import { Twitter, Linkedin, Github, Lock, X, ShieldAlert, Check, Loader2 } from 'lucide-react';
 
 // 1. DEFINE LEGAL DATA
 const LEGAL_DOCS: Record<string, string> = {
@@ -105,6 +105,10 @@ const SimpleLegalModal = ({ title, content, onClose }: { title: string, content:
 const Footer: React.FC = () => {
   const [notification, setNotification] = useState<string | null>(null);
   const [activeLegalDoc, setActiveLegalDoc] = useState<{ title: string; content: string } | null>(null);
+  
+  // Newsletter State
+  const [email, setEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<'IDLE' | 'LOADING' | 'SUCCESS'>('IDLE');
 
   useEffect(() => {
     if (notification) {
@@ -120,6 +124,30 @@ const Footer: React.FC = () => {
     }
     const moduleId = name.toUpperCase().replace(/\s+/g, '_').replace(/[^A-Z0-9_]/g, '');
     setNotification(`ACCESS_DENIED: MODULE "${moduleId}" UNDER_CONSTRUCTION`);
+  };
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newsletterStatus !== 'IDLE') return;
+
+    // Basic Validation
+    if (!email || !email.includes('@')) {
+        setNotification("ERROR: INVALID_EMAIL_FORMAT");
+        return;
+    }
+
+    setNewsletterStatus('LOADING');
+
+    // Simulate Network Request
+    setTimeout(() => {
+        setNewsletterStatus('SUCCESS');
+        setEmail(''); // Clear input
+        
+        // Reset state after delay
+        setTimeout(() => {
+            setNewsletterStatus('IDLE');
+        }, 3000);
+    }, 1500);
   };
 
   return (
@@ -160,16 +188,32 @@ const Footer: React.FC = () => {
            </div>
            
            <div className="w-full lg:w-auto">
-              <div className="relative group">
+              <form onSubmit={handleNewsletterSubmit} className="relative group">
                  <input 
                    type="email" 
-                   placeholder="ENTER CORPORATE EMAIL" 
-                   className="w-full md:w-[400px] bg-white/5 border border-white/10 rounded-none px-6 py-5 text-sm font-mono placeholder-white/30 focus:outline-none focus:border-cobalt focus:bg-white/10 transition-all"
+                   value={email}
+                   onChange={(e) => setEmail(e.target.value)}
+                   disabled={newsletterStatus !== 'IDLE'}
+                   placeholder={newsletterStatus === 'IDLE' ? "ENTER CORPORATE EMAIL" : ""}
+                   className="w-full md:w-[400px] bg-white/5 border border-white/10 rounded-none px-6 py-5 text-sm font-mono placeholder-white/30 focus:outline-none focus:border-cobalt focus:bg-white/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                  />
-                 <button className="absolute right-2 top-2 bottom-2 bg-white text-onyx px-6 font-bold text-xs uppercase hover:bg-cobalt hover:text-white transition-colors">
-                    Initialize
+                 <button 
+                   type="submit"
+                   disabled={newsletterStatus !== 'IDLE'}
+                   className={`absolute right-2 top-2 bottom-2 px-6 font-bold text-xs uppercase transition-all duration-300 flex items-center gap-2 ${
+                       newsletterStatus === 'SUCCESS' ? 'bg-green-500 text-white cursor-default' :
+                       newsletterStatus === 'LOADING' ? 'bg-cobalt text-white cursor-wait' :
+                       'bg-white text-onyx hover:bg-cobalt hover:text-white'
+                   }`}
+                 >
+                    {newsletterStatus === 'LOADING' && <Loader2 size={12} className="animate-spin" />}
+                    {newsletterStatus === 'SUCCESS' && <Check size={12} />}
+                    
+                    {newsletterStatus === 'IDLE' ? 'Initialize' : 
+                     newsletterStatus === 'LOADING' ? 'Encrypting...' : 
+                     'Registered'}
                  </button>
-              </div>
+              </form>
               <div className="mt-4 flex gap-6 text-[10px] font-mono text-white/30 uppercase">
                  <span className="flex items-center gap-1"><Lock size={10} /> 256-bit Encrypted</span>
                  <span>No Spam Protocol</span>

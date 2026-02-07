@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, Variants, useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
+import { motion, AnimatePresence, Variants, useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
 import { ArrowRight, Cpu, Activity, Zap, Layers, Network, Server, ShieldCheck, Box, Crosshair, BarChart3, Radio, Timer, Factory, Package, Truck, TrendingUp, AlertCircle, Info, DollarSign, PieChart, Atom, Brain, Thermometer, Battery } from 'lucide-react';
 
 interface HomeProps {
@@ -54,38 +54,52 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.Reac
   </motion.div>
 );
 
-// 1. VISUAL DEPTH: DEEP ATMOSPHERE BACKGROUND
-const DeepAtmosphere = () => {
+// 1. VISUAL DEPTH: FLUID OPTICS (Updated: Organic Refracted Light)
+const FluidOptics = () => {
    return (
-      <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-[#0A0A0A] to-black pointer-events-none overflow-hidden">
-        {/* Subtle Dust / Stars Effect */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+      <div className="absolute inset-0 w-full h-full bg-[#FAFAFA] pointer-events-none overflow-hidden">
+        {/* Noise Texture - Grounding Grain */}
+        <div 
+          className="absolute inset-0 z-20 opacity-[0.03] mix-blend-multiply pointer-events-none"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+        ></div>
         
-        {/* Static Particles for Depth */}
-        {[...Array(20)].map((_, i) => {
-            const size = Math.random() * 2 + 1;
-            return (
-                <div
-                    key={i}
-                    className="absolute bg-white rounded-full opacity-30"
-                    style={{
-                        top: `${Math.random() * 100}%`,
-                        left: `${Math.random() * 100}%`,
-                        width: `${size}px`,
-                        height: `${size}px`,
-                        filter: `blur(${Math.random()}px)`
-                    }}
-                />
-            );
-        })}
-        
-        {/* Deep Horizon Glow */}
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-cobalt/10 to-transparent"></div>
+        {/* Blob 1: Blue - Top Left Drift */}
+        <motion.div
+           animate={{
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+              scale: [1, 1.2, 1],
+           }}
+           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+           className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-blue-400/20 rounded-full blur-[100px] mix-blend-multiply"
+        />
+
+        {/* Blob 2: Purple - Bottom Right Drift */}
+        <motion.div
+           animate={{
+              x: [0, -60, 0],
+              y: [0, -40, 0],
+              scale: [1.1, 0.9, 1.1],
+           }}
+           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+           className="absolute bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-purple-300/20 rounded-full blur-[120px] mix-blend-multiply"
+        />
+
+        {/* Blob 3: Cyan - Center Pulse */}
+        <motion.div
+           animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0.6, 0.3]
+           }}
+           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-300/20 rounded-full blur-[100px] mix-blend-multiply"
+        />
       </div>
    );
 };
 
-// 2. TRUST: DEPLOYMENT SCENARIOS (CASE STUDIES)
+// 2. TRUST: DEPLOYMENT SCENARIOS (Dynamic Visualization)
 const DeploymentScenarios = () => {
    const [activeCase, setActiveCase] = useState(0);
 
@@ -184,7 +198,7 @@ const DeploymentScenarios = () => {
                          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-20 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
                          
                          <div className="relative z-30">
-                            <div className="flex justify-between items-center mb-12 border-b border-white/10 pb-4">
+                            <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
                                <div className="flex items-center gap-3">
                                   <Activity className="text-cobalt animate-pulse" size={16} />
                                   <span className="font-mono text-xs text-cobalt uppercase">Live Telemetry</span>
@@ -192,44 +206,156 @@ const DeploymentScenarios = () => {
                                <div className="font-mono text-xs text-white/30">ID: {cases[activeCase].partner}</div>
                             </div>
 
-                            <div className="flex items-end gap-4">
-                               <motion.div 
-                                 key={activeCase}
-                                 initial={{ opacity: 0, y: 20 }}
-                                 animate={{ opacity: 1, y: 0 }}
-                                 transition={{ duration: 0.5 }}
-                               >
-                                  <div className={`text-7xl font-mono font-bold tracking-tighter ${cases[activeCase].color}`}>
-                                     {cases[activeCase].val}
-                                  </div>
-                                  <div className="text-sm font-mono text-white/50 mt-2 uppercase tracking-widest">
-                                     {cases[activeCase].metric}
-                                  </div>
-                               </motion.div>
+                            <div className="flex items-end gap-4 mb-8">
+                               <AnimatePresence mode="wait">
+                                   <motion.div 
+                                     key={activeCase}
+                                     initial={{ opacity: 0, y: 10 }}
+                                     animate={{ opacity: 1, y: 0 }}
+                                     exit={{ opacity: 0, y: -10 }}
+                                     transition={{ duration: 0.3 }}
+                                   >
+                                      <div className={`text-6xl font-mono font-bold tracking-tighter ${cases[activeCase].color}`}>
+                                         {cases[activeCase].val}
+                                      </div>
+                                      <div className="text-sm font-mono text-white/50 mt-1 uppercase tracking-widest">
+                                         {cases[activeCase].metric}
+                                      </div>
+                                   </motion.div>
+                               </AnimatePresence>
                             </div>
                          </div>
 
-                         {/* Background Graph Animation */}
-                         <div className="absolute bottom-0 left-0 right-0 h-48 opacity-20">
-                            <svg className="w-full h-full" preserveAspectRatio="none">
-                               <motion.path 
-                                  key={activeCase}
-                                  initial={{ d: "M0,100 Q50,100 100,100 T200,100" }}
-                                  animate={{ d: "M0,100 Q50,20 100,50 T200,80 T300,40 T400,90 T500,20 T600,100" }}
-                                  transition={{ duration: 1.5, ease: "easeInOut" }}
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  className={cases[activeCase].color}
-                               />
-                               <motion.path 
-                                  d="M0,100 L600,100" // Baseline
-                                  stroke="white"
-                                  strokeWidth="1"
-                                  strokeDasharray="4 4"
-                                  opacity="0.5"
-                               />
-                            </svg>
+                         {/* DYNAMIC GRAPH ANIMATION */}
+                         <div className="absolute bottom-0 left-0 right-0 top-[40%] p-8 overflow-hidden flex items-end justify-center">
+                            <AnimatePresence mode="wait">
+                                {activeCase === 0 && (
+                                   // CASE 1: THERMAL DROP LINE CHART
+                                   <motion.div 
+                                      key="ai"
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: 1 }}
+                                      exit={{ opacity: 0 }}
+                                      transition={{ duration: 0.5 }}
+                                      className="w-full h-full relative"
+                                   >
+                                      <svg className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                                         {/* Grid Lines */}
+                                         <line x1="0" y1="20%" x2="100%" y2="20%" stroke="white" strokeOpacity="0.1" strokeDasharray="4 4" />
+                                         <line x1="0" y1="50%" x2="100%" y2="50%" stroke="white" strokeOpacity="0.1" strokeDasharray="4 4" />
+                                         <line x1="0" y1="80%" x2="100%" y2="80%" stroke="white" strokeOpacity="0.1" strokeDasharray="4 4" />
+                                         
+                                         {/* Drop Curve */}
+                                         <motion.path 
+                                            d="M0,10 C100,10 200,10 300,50 C400,90 500,85 600,85"
+                                            fill="none"
+                                            stroke="#F97316"
+                                            strokeWidth="3"
+                                            initial={{ pathLength: 0 }}
+                                            animate={{ pathLength: 1 }}
+                                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                                         />
+                                         {/* Area Fill */}
+                                         <motion.path 
+                                            d="M0,10 C100,10 200,10 300,50 C400,90 500,85 600,85 V200 H0 Z"
+                                            fill="url(#gradOrange)"
+                                            opacity="0.2"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 0.2 }}
+                                            transition={{ duration: 1 }}
+                                         />
+                                         <defs>
+                                            <linearGradient id="gradOrange" x1="0" y1="0" x2="0" y2="1">
+                                               <stop offset="0%" stopColor="#F97316" />
+                                               <stop offset="100%" stopColor="transparent" />
+                                            </linearGradient>
+                                         </defs>
+                                         
+                                         {/* Labels */}
+                                         <text x="10" y="25" className="text-[10px] fill-white/40 font-mono">90°C</text>
+                                         <text x="550" y="75" className="text-[10px] fill-orange-500 font-bold font-mono">75°C</text>
+                                      </svg>
+                                   </motion.div>
+                                )}
+
+                                {activeCase === 1 && (
+                                   // CASE 2: LATENCY BAR COMPARISON
+                                   <motion.div 
+                                      key="auto"
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: 1 }}
+                                      exit={{ opacity: 0 }}
+                                      transition={{ duration: 0.5 }}
+                                      className="w-full h-full flex items-end justify-center gap-16 pb-4"
+                                   >
+                                      <div className="flex flex-col items-center gap-2 group">
+                                         <div className="text-[10px] font-mono text-white/40 uppercase">Standard</div>
+                                         <motion.div 
+                                            initial={{ height: 0 }}
+                                            animate={{ height: "80%" }}
+                                            transition={{ duration: 0.8, ease: "easeOut" }}
+                                            className="w-16 bg-white/10 border border-white/20 rounded-t-lg relative"
+                                         >
+                                            <div className="absolute top-2 w-full text-center text-xs font-mono text-white/60">15ms</div>
+                                         </motion.div>
+                                      </div>
+                                      
+                                      <div className="flex flex-col items-center gap-2 group">
+                                         <div className="text-[10px] font-mono text-yellow-400 uppercase font-bold">AXON</div>
+                                         <motion.div 
+                                            initial={{ height: 0 }}
+                                            animate={{ height: "40%" }}
+                                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                                            className="w-16 bg-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.3)] rounded-t-lg relative"
+                                         >
+                                            <div className="absolute -top-6 w-full text-center text-lg font-bold font-mono text-yellow-400">4ms</div>
+                                         </motion.div>
+                                      </div>
+                                   </motion.div>
+                                )}
+
+                                {activeCase === 2 && (
+                                   // CASE 3: BATTERY LIFE HORIZONTAL
+                                   <motion.div 
+                                      key="mobile"
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: 1 }}
+                                      exit={{ opacity: 0 }}
+                                      transition={{ duration: 0.5 }}
+                                      className="w-full h-full flex flex-col justify-center gap-6 px-4"
+                                   >
+                                      <div className="space-y-2">
+                                         <div className="flex justify-between text-[10px] font-mono uppercase text-white/40">
+                                            <span>Legacy 4nm</span>
+                                            <span>18 Hrs</span>
+                                         </div>
+                                         <div className="w-full h-4 bg-white/5 rounded-full overflow-hidden">
+                                            <motion.div 
+                                               initial={{ width: 0 }}
+                                               animate={{ width: "60%" }}
+                                               transition={{ duration: 1 }}
+                                               className="h-full bg-white/20"
+                                            />
+                                         </div>
+                                      </div>
+
+                                      <div className="space-y-2">
+                                         <div className="flex justify-between text-[10px] font-mono uppercase text-green-400 font-bold">
+                                            <span>AXON 14A</span>
+                                            <span>24 Hrs (+22%)</span>
+                                         </div>
+                                         <div className="w-full h-4 bg-white/5 rounded-full overflow-hidden">
+                                            <motion.div 
+                                               initial={{ width: 0 }}
+                                               animate={{ width: "85%" }}
+                                               transition={{ duration: 1, delay: 0.2 }}
+                                               className="h-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.4)]"
+                                            />
+                                         </div>
+                                      </div>
+                                   </motion.div>
+                                )}
+                            </AnimatePresence>
                          </div>
                       </div>
                    </FadeIn>
@@ -368,62 +494,70 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
   return (
     <div className="w-full">
       {/* 1. HERO SECTION */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 relative overflow-hidden">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 relative overflow-hidden bg-[#FAFAFA]">
          
-         {/* VISUAL DEPTH: DEEP ATMOSPHERE BG */}
-         <DeepAtmosphere />
+         {/* VISUAL DEPTH: FLUID OPTICS */}
+         <FluidOptics />
 
          <motion.div 
-           className="max-w-5xl z-10"
+           className="max-w-5xl z-10 relative"
            variants={heroContainerVars}
            initial="hidden"
            animate="visible"
          >
-            {/* Step 1: Pill Slide Down */}
-            <motion.div 
-               variants={heroPillVars}
-               className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 backdrop-blur-md rounded-full shadow-sm mb-8"
-            >
-               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
-               <span className="text-[10px] font-bold tracking-widest text-white/90 uppercase">Fab 4.2 Online</span>
-            </motion.div>
+            {/* GLASSMORPHIC TYPOGRAPHY PANEL */}
+            <div className="relative">
+                {/* Backdrop Panel - Desktop Only */}
+                <div className="hidden md:block absolute -inset-8 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white/20 shadow-sm opacity-100"></div>
 
-            {/* Step 2: Masked Text Reveal */}
-            <h1 className="text-7xl md:text-[10rem] font-bold leading-[0.85] tracking-tighter mb-10">
-               <div className="overflow-hidden">
-                  <motion.div variants={heroTextRevealVars} className="text-white drop-shadow-xl">Silicon</motion.div>
-               </div>
-               <div className="overflow-hidden pt-2 -mt-2 pb-2">
-                  <motion.div 
-                    variants={heroTextRevealVars} 
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-cobalt to-blue-400 drop-shadow-lg"
-                  >
-                    Evolution.
-                  </motion.div>
-               </div>
-            </h1>
+                <div className="relative z-10">
+                    {/* Step 1: Pill Slide Down (Dark Text) */}
+                    <motion.div 
+                    variants={heroPillVars}
+                    className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-onyx/10 rounded-full shadow-sm mb-8"
+                    >
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-[10px] font-bold tracking-widest text-onyx/80 uppercase">Fab 4.2 Online</span>
+                    </motion.div>
 
-            {/* Step 3: Paragraph Blur In */}
-            <motion.div 
-               variants={heroBlurVars}
-               className="flex flex-col gap-8 items-start max-w-xl"
-            >
-               <p className="text-xl text-white/70 font-medium leading-relaxed drop-shadow-sm">
-                  The world's first 14 Ångström process node. Fabricated for the post-silicon era with directed self-assembly.
-               </p>
-               
-               {/* Step 4: Button Slide Up + Micro-interaction */}
-               <motion.button 
-                  variants={heroButtonVars}
-                  whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 71, 171, 0.3)" }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setPage('specs')} 
-                  className="group flex items-center gap-3 px-8 py-4 rounded-full font-bold border border-white/20 bg-white/10 backdrop-blur-md text-white transition-colors duration-300 hover:bg-cobalt hover:border-transparent"
-               >
-                  View Lithography Specs
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300"/>
-               </motion.button>
-            </motion.div>
+                    {/* Step 2: Masked Text Reveal (Dark Text) */}
+                    <h1 className="text-7xl md:text-[10rem] font-bold leading-[0.85] tracking-tighter mb-10 text-onyx">
+                    <div className="overflow-hidden">
+                        <motion.div variants={heroTextRevealVars}>Silicon</motion.div>
+                    </div>
+                    <div className="overflow-hidden pt-2 -mt-2 pb-2">
+                        <motion.div 
+                            variants={heroTextRevealVars} 
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-onyx via-gray-700 to-onyx"
+                        >
+                            Evolution.
+                        </motion.div>
+                    </div>
+                    </h1>
+
+                    {/* Step 3: Paragraph Blur In */}
+                    <motion.div 
+                    variants={heroBlurVars}
+                    className="flex flex-col gap-8 items-start max-w-xl"
+                    >
+                    <p className="text-xl text-onyx/60 font-medium leading-relaxed">
+                        The world's first 14 Ångström process node. Fabricated for the post-silicon era with directed self-assembly.
+                    </p>
+                    
+                    {/* Step 4: Button Slide Up (Glassmorphic Outline) */}
+                    <motion.button 
+                        variants={heroButtonVars}
+                        whileHover={{ scale: 1.02, boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setPage('specs')} 
+                        className="group flex items-center gap-3 px-8 py-4 rounded-full font-bold border border-onyx/10 bg-white/40 backdrop-blur-md text-onyx transition-all duration-300 hover:bg-onyx hover:text-white"
+                    >
+                        View Lithography Specs
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300"/>
+                    </motion.button>
+                    </motion.div>
+                </div>
+            </div>
          </motion.div>
       </section>
 
@@ -496,9 +630,9 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       {/* 4. NEW: DEPLOYMENT SCENARIOS (Replaces Partner Logo Dump) */}
       <DeploymentScenarios />
 
-      {/* 5. PREDICTIVE SCALING */}
-      <section className="py-24 px-6 md:px-20 bg-onyx text-white border-t border-white/10 relative overflow-hidden">
-         <div className="absolute inset-0 bg-grid-pattern-dark opacity-10 pointer-events-none"></div>
+      {/* 5. PREDICTIVE SCALING (LIGHT THEME SWAP) */}
+      <section className="py-24 px-6 md:px-20 bg-surface text-onyx border-t border-onyx/10 relative overflow-hidden">
+         <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none"></div>
 
          <div className="max-w-7xl mx-auto relative z-10">
             <FadeIn>
@@ -506,34 +640,34 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                   <div className="mb-8 md:mb-0">
                      <div className="flex items-center gap-2 mb-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <p className="text-white/40 font-mono text-xs uppercase tracking-widest">Live Capacity Forecasting</p>
+                        <p className="text-onyx/40 font-mono text-xs uppercase tracking-widest">Live Capacity Forecasting</p>
                      </div>
-                     <h2 className="text-4xl font-bold tracking-tight">Predictive Scaling</h2>
+                     <h2 className="text-4xl font-bold tracking-tight text-onyx">Predictive Scaling</h2>
                   </div>
                   
-                  <div className="flex gap-8 text-right bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                  <div className="flex gap-8 text-right bg-white p-4 rounded-xl border border-onyx/10 shadow-sm">
                      <div>
-                        <div className="text-[10px] font-mono text-white/40 uppercase mb-1">Total Allocated</div>
-                        <div className="text-white font-bold font-mono text-xl">14.2M <span className="text-xs text-white/40">Units</span></div>
+                        <div className="text-[10px] font-mono text-onyx/40 uppercase mb-1">Total Allocated</div>
+                        <div className="text-onyx font-bold font-mono text-xl">14.2M <span className="text-xs text-onyx/40">Units</span></div>
                      </div>
-                     <div className="w-px h-full bg-white/10"></div>
+                     <div className="w-px h-full bg-onyx/10"></div>
                      <div>
-                        <div className="text-[10px] font-mono text-white/40 uppercase mb-1">Forecast Delta</div>
+                        <div className="text-[10px] font-mono text-onyx/40 uppercase mb-1">Forecast Delta</div>
                         <div className="text-cobalt font-bold font-mono text-xl">+22.4%</div>
                      </div>
                   </div>
                </div>
             </FadeIn>
 
-            {/* ENGINEERING CHART */}
+            {/* ENGINEERING CHART (Light Theme) */}
             <FadeIn delay={0.2}>
-               <div className="w-full h-[400px] bg-black/20 border border-white/10 rounded-xl p-8 relative flex flex-col">
+               <div className="w-full h-[400px] bg-white border border-onyx/10 rounded-xl p-8 relative flex flex-col shadow-sm">
                   
                   {/* Grid Background */}
                   <div className="absolute inset-0 p-8 flex flex-col justify-between pointer-events-none z-0">
                      {[100, 75, 50, 25, 0].map((val, i) => (
-                        <div key={i} className="w-full h-px bg-white/5 relative">
-                           <span className="absolute -left-8 -top-2 text-[10px] font-mono text-white/20">{val}%</span>
+                        <div key={i} className="w-full h-px bg-onyx/5 relative">
+                           <span className="absolute -left-8 -top-2 text-[10px] font-mono text-onyx/20">{val}%</span>
                         </div>
                      ))}
                   </div>
@@ -549,13 +683,13 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                         <div key={i} className="group relative flex flex-col items-center gap-4 h-full justify-end w-full px-2 md:px-8">
                            
                            {/* Hover Tooltip */}
-                           <div className="absolute -top-12 bg-white text-onyx px-3 py-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
+                           <div className="absolute -top-12 bg-onyx text-white px-3 py-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
                               <div className="text-[10px] font-mono font-bold whitespace-nowrap">
                                  DEMAND: {data.demand}k / CAP: {data.cap}k
                               </div>
                               <div className={`text-[9px] font-mono font-bold mt-1 ${
-                                 data.status === 'OPTIMAL' ? 'text-green-600' : 
-                                 data.status === 'CRITICAL' ? 'text-yellow-600' : 'text-red-600'
+                                 data.status === 'OPTIMAL' ? 'text-green-400' : 
+                                 data.status === 'CRITICAL' ? 'text-yellow-400' : 'text-red-400'
                               }`}>
                                  STATUS: {data.status}
                               </div>
@@ -567,7 +701,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                                  initial={{ height: 0 }}
                                  whileInView={{ height: `${data.cap}%` }}
                                  transition={{ duration: 1, delay: i * 0.1 }}
-                                 className="absolute bottom-0 w-full border-x border-t border-dashed border-white/30 bg-white/5 z-0"
+                                 className="absolute bottom-0 w-full border-x border-t border-dashed border-onyx/20 bg-onyx/5 z-0"
                               />
 
                               {/* Demand Bar (Solid) */}
@@ -576,9 +710,9 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                                  whileInView={{ height: `${data.demand}%` }}
                                  transition={{ duration: 1, delay: 0.2 + (i * 0.1), type: "spring", bounce: 0.2 }}
                                  className={`w-[60%] z-10 relative ${
-                                    data.status === 'OVERFLOW' ? 'bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.4)]' : 
-                                    data.status === 'CRITICAL' ? 'bg-yellow-500 shadow-[0_0_20px_rgba(234,179,8,0.4)]' : 
-                                    'bg-cobalt shadow-[0_0_20px_rgba(0,71,171,0.4)]'
+                                    data.status === 'OVERFLOW' ? 'bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.2)]' : 
+                                    data.status === 'CRITICAL' ? 'bg-yellow-500 shadow-[0_0_20px_rgba(234,179,8,0.2)]' : 
+                                    'bg-cobalt shadow-[0_0_20px_rgba(0,71,171,0.2)]'
                                  }`}
                               >
                                  {data.status === 'OVERFLOW' && (
@@ -589,7 +723,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                               </motion.div>
                            </div>
                            
-                           <div className="text-xs font-mono text-white/50 border-t border-white/10 pt-2 w-full text-center group-hover:text-white transition-colors">
+                           <div className="text-xs font-mono text-onyx/50 border-t border-onyx/10 pt-2 w-full text-center group-hover:text-onyx transition-colors">
                               {data.q}
                            </div>
                         </div>
@@ -603,23 +737,23 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                <div className="mt-8 flex justify-center gap-8">
                   <div className="flex items-center gap-2">
                      <div className="w-3 h-3 bg-cobalt"></div>
-                     <span className="text-[10px] font-mono text-white/60 uppercase">Market Demand</span>
+                     <span className="text-[10px] font-mono text-onyx/60 uppercase">Market Demand</span>
                   </div>
                   <div className="flex items-center gap-2">
-                     <div className="w-3 h-3 bg-white/10 border border-dashed border-white/30"></div>
-                     <span className="text-[10px] font-mono text-white/60 uppercase">Allocated Capacity</span>
+                     <div className="w-3 h-3 bg-onyx/5 border border-dashed border-onyx/30"></div>
+                     <span className="text-[10px] font-mono text-onyx/60 uppercase">Allocated Capacity</span>
                   </div>
                   <div className="flex items-center gap-2">
                      <div className="w-3 h-3 bg-red-500"></div>
-                     <span className="text-[10px] font-mono text-white/60 uppercase">Supply Overflow</span>
+                     <span className="text-[10px] font-mono text-onyx/60 uppercase">Supply Overflow</span>
                   </div>
                </div>
             </FadeIn>
          </div>
       </section>
 
-      {/* 6. SUPPLY CHAIN VELOCITY */}
-      <section className="py-24 px-6 md:px-20 bg-white border-t border-onyx/10 relative overflow-hidden">
+      {/* 6. SUPPLY CHAIN VELOCITY (DARK MODE UPGRADE) */}
+      <section className="py-24 px-6 md:px-20 bg-onyx text-white border-t border-white/10 relative overflow-hidden">
          {/* Background accent */}
          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cobalt/5 rounded-full blur-[100px] pointer-events-none"></div>
 
@@ -628,15 +762,15 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                <div className="flex items-center gap-3 mb-16">
                   <div className="p-2 bg-cobalt/10 rounded-lg"><Timer className="text-cobalt" size={24}/></div>
                   <div>
-                    <h2 className="text-2xl font-bold text-onyx">Supply Chain Velocity</h2>
-                    <p className="text-xs font-mono text-onyx/40 uppercase tracking-widest">End-to-End Latency Tracking</p>
+                    <h2 className="text-2xl font-bold text-white">Supply Chain Velocity</h2>
+                    <p className="text-xs font-mono text-white/40 uppercase tracking-widest">End-to-End Latency Tracking</p>
                   </div>
                </div>
             </FadeIn>
 
             <div className="relative">
                {/* Connecting Line (Desktop) */}
-               <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-onyx/5 via-onyx/20 to-onyx/5 -translate-y-1/2 z-0"></div>
+               <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-white/5 via-white/20 to-white/5 -translate-y-1/2 z-0"></div>
 
                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
                   {[
@@ -650,8 +784,8 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                            <div className="group">
                               <div className="flex flex-col items-center text-center">
                                  {/* Icon Node */}
-                                 <div className="w-16 h-16 bg-white border border-onyx/10 rounded-full flex items-center justify-center mb-6 relative z-10 group-hover:border-cobalt group-hover:shadow-[0_0_20px_rgba(0,71,171,0.2)] transition-all duration-300">
-                                    <item.icon size={24} className="text-onyx/60 group-hover:text-cobalt transition-colors" />
+                                 <div className="w-16 h-16 bg-onyx border border-white/10 rounded-full flex items-center justify-center mb-6 relative z-10 group-hover:border-cobalt group-hover:shadow-[0_0_20px_rgba(0,71,171,0.2)] transition-all duration-300">
+                                    <item.icon size={24} className="text-white/60 group-hover:text-cobalt transition-colors" />
                                     {i === 1 && (
                                       <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse border-2 border-white"></div>
                                     )}
@@ -660,11 +794,11 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                                  {/* Data Card */}
                                  <motion.div 
                                     whileHover={{ y: -5, borderColor: '#0047AB' }}
-                                    className="w-full bg-surface border border-onyx/10 p-6 rounded-xl hover:bg-white transition-colors shadow-sm"
+                                    className="w-full bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-colors shadow-sm"
                                  >
-                                    <div className="text-2xl font-mono font-bold text-onyx mb-1">{item.time}</div>
+                                    <div className="text-2xl font-mono font-bold text-white mb-1">{item.time}</div>
                                     <div className="text-xs font-bold uppercase tracking-wider text-cobalt mb-2">{item.stage}</div>
-                                    <div className="text-xs text-onyx/40 font-mono">{item.desc}</div>
+                                    <div className="text-xs text-white/40 font-mono">{item.desc}</div>
                                  </motion.div>
                               </div>
                            </div>

@@ -97,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
              className="absolute text-xs font-bold whitespace-nowrap"
              animate={{ opacity: isScrolled ? 0 : 1, scale: isScrolled ? 0.5 : 1 }}
            >
-             Access PDK Portal
+             Partner With Us
            </motion.span>
            
            {/* Icon Label */}

@@ -32,7 +32,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setPage }) => {
   }, [activePage]);
 
   return (
-    <div className="min-h-screen bg-surface text-onyx font-sans overflow-hidden relative selection:bg-cobalt/20 selection:text-cobalt">
+    <div className="min-h-screen bg-surface text-onyx font-sans overflow-hidden relative selection:bg-cobalt selection:text-white">
       <CustomCursor />
       
       {/* READING PROGRESS BAR */}

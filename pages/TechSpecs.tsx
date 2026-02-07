@@ -1,99 +1,223 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SPECS } from '../constants';
-import { Download, Layers, Cpu, Thermometer, Zap, Activity, Network } from 'lucide-react';
+import { SPECS, FEATURES } from '../constants';
+import { Download, Cpu, Thermometer, Zap, Activity, BarChart3, TrendingUp, ShieldCheck, Cable } from 'lucide-react';
 
 const TechSpecs: React.FC = () => {
   const [viewMode, setViewMode] = useState<'logic' | 'thermal' | 'power' | 'signal'>('logic');
 
   return (
-    <div className="min-h-screen pt-40 pb-20">
-      <div className="max-w-6xl mx-auto px-6">
+    <div className="min-h-screen pt-32 pb-20 bg-surface text-onyx">
+      <div className="max-w-7xl mx-auto px-6">
          
-         <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+         {/* HEADER */}
+         <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-onyx/10 pb-8">
             <div>
-               <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-onyx mb-4">
-                  Datasheet
-               </h1>
-               <div className="flex items-center gap-2">
-                  <span className="bg-azure text-white text-xs font-bold px-2 py-1 rounded">REV 4.2</span>
-                  <span className="text-gray-500 font-medium">Angstrom Class Logic</span>
-               </div>
+               <div className="text-xs font-mono text-cobalt mb-2 uppercase tracking-widest">/// Datasheet Rev 4.2</div>
+               <h1 className="text-6xl font-bold tracking-tighter text-onyx mb-2">A-1400 Series</h1>
+               <p className="text-onyx/60 max-w-xl">1.4nm Angstrom-Class Logic Node with Backside Power Delivery.</p>
             </div>
-            <button className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-full shadow-sm hover:shadow-md transition-shadow text-sm font-bold text-onyx">
-               <Download size={16} /> Download PDF
+            <button className="flex items-center gap-2 px-6 py-3 bg-onyx text-white rounded-full hover:bg-cobalt transition-colors text-sm font-bold mt-6 md:mt-0 shadow-lg shadow-onyx/20">
+               <Download size={16} /> DOWNLOAD PDF
             </button>
          </div>
 
-         {/* INTERACTIVE VISUALIZER EXPANDED */}
-         <div className="bg-surface rounded-3xl p-8 border border-gray-200 shadow-xl mb-20 overflow-hidden relative">
-            <div className="flex flex-wrap gap-4 mb-8 relative z-10">
-               <button onClick={() => setViewMode('logic')} className={`px-6 py-2 rounded-full text-sm font-bold transition-colors ${viewMode === 'logic' ? 'bg-onyx text-white' : 'bg-gray-100 text-gray-500'}`}>Logic Map</button>
-               <button onClick={() => setViewMode('thermal')} className={`px-6 py-2 rounded-full text-sm font-bold transition-colors ${viewMode === 'thermal' ? 'bg-red-500 text-white' : 'bg-gray-100 text-gray-500'}`}>Thermal</button>
-               <button onClick={() => setViewMode('power')} className={`px-6 py-2 rounded-full text-sm font-bold transition-colors ${viewMode === 'power' ? 'bg-yellow-500 text-white' : 'bg-gray-100 text-gray-500'}`}>Power Grid</button>
-               <button onClick={() => setViewMode('signal')} className={`px-6 py-2 rounded-full text-sm font-bold transition-colors ${viewMode === 'signal' ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-500'}`}>Signal Mesh</button>
+         {/* 1. INTERACTIVE VISUALIZER */}
+         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+            
+            {/* Control Panel */}
+            <div className="lg:col-span-1 space-y-4">
+               <h3 className="text-sm font-bold uppercase tracking-widest mb-6">Real-Time Diagnostics</h3>
+               
+               <button onClick={() => setViewMode('logic')} className={`w-full text-left p-4 rounded-xl border transition-all ${viewMode === 'logic' ? 'bg-white border-cobalt shadow-lg' : 'bg-transparent border-onyx/10 hover:bg-white/50'}`}>
+                  <div className="flex items-center gap-3 mb-2">
+                     <Cpu size={20} className={viewMode === 'logic' ? 'text-cobalt' : 'text-onyx/40'} />
+                     <span className="font-bold">Logic Topology</span>
+                  </div>
+                  <div className="text-xs text-onyx/60">Active Core Load & Gate Switching</div>
+               </button>
+
+               <button onClick={() => setViewMode('thermal')} className={`w-full text-left p-4 rounded-xl border transition-all ${viewMode === 'thermal' ? 'bg-white border-red-500 shadow-lg' : 'bg-transparent border-onyx/10 hover:bg-white/50'}`}>
+                  <div className="flex items-center gap-3 mb-2">
+                     <Thermometer size={20} className={viewMode === 'thermal' ? 'text-red-500' : 'text-onyx/40'} />
+                     <span className="font-bold">Thermal Map</span>
+                  </div>
+                  <div className="text-xs text-onyx/60">TDP Distribution & Hotspots</div>
+               </button>
+
+               <button onClick={() => setViewMode('power')} className={`w-full text-left p-4 rounded-xl border transition-all ${viewMode === 'power' ? 'bg-white border-yellow-500 shadow-lg' : 'bg-transparent border-onyx/10 hover:bg-white/50'}`}>
+                  <div className="flex items-center gap-3 mb-2">
+                     <Zap size={20} className={viewMode === 'power' ? 'text-yellow-500' : 'text-onyx/40'} />
+                     <span className="font-bold">Power Grid</span>
+                  </div>
+                  <div className="text-xs text-onyx/60">Backside Rail Voltage Droop</div>
+               </button>
             </div>
 
-            <div className="relative h-[400px] bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center overflow-hidden">
+            {/* Visualization Window */}
+            <div className="lg:col-span-2 bg-onyx rounded-2xl border border-onyx/5 relative overflow-hidden h-[500px] shadow-2xl flex items-center justify-center">
+               <div className="absolute inset-0 bg-grid-pattern-dark bg-grid opacity-20 pointer-events-none"></div>
+               
                <AnimatePresence mode="wait">
                   {viewMode === 'logic' && (
-                     <motion.div key="logic" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative w-full h-full p-10 grid grid-cols-4 gap-2 opacity-50">
-                        {Array.from({ length: 16 }).map((_, i) => <div key={i} className="border border-azure/20 bg-azure/5 rounded"></div>)}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center">
-                              <Cpu className="w-12 h-12 text-azure mx-auto mb-2" />
-                              <div className="font-bold text-onyx">GAAFET Core</div>
+                     <motion.div key="logic" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full p-8 grid grid-cols-4 gap-4">
+                        {Array.from({ length: 16 }).map((_, i) => (
+                           <div key={i} className="bg-white/5 border border-white/10 rounded-lg relative overflow-hidden group">
+                              <div className="absolute top-2 left-2 text-[10px] font-mono text-white/40">CORE_{i}</div>
+                              {/* Animated Activity Bar */}
+                              <motion.div 
+                                animate={{ height: [Math.random() * 100 + "%", Math.random() * 100 + "%"] }} 
+                                transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                                className="absolute bottom-0 left-0 w-full bg-cobalt/40"
+                              />
+                              <div className="absolute bottom-2 right-2 text-xs font-mono text-cobalt">{Math.floor(Math.random() * 99)}%</div>
                            </div>
+                        ))}
+                     </motion.div>
+                  )}
+
+                  {viewMode === 'thermal' && (
+                     <motion.div key="thermal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative w-full h-full">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 via-transparent to-red-900/50"></div>
+                        {/* Heat Blobs */}
+                        <motion.div animate={{ x: [0, 20, 0], y: [0, -20, 0], scale: [1, 1.2, 1] }} transition={{ duration: 5, repeat: Infinity }} className="absolute top-1/3 left-1/3 w-64 h-64 bg-red-600/40 blur-[80px] rounded-full"></motion.div>
+                        <div className="absolute bottom-8 left-8 text-white">
+                           <div className="text-4xl font-bold">42.5°C</div>
+                           <div className="text-xs font-mono text-white/50">AVERAGE JUNCTION TEMP</div>
                         </div>
                      </motion.div>
                   )}
-                  {viewMode === 'thermal' && (
-                     <motion.div key="thermal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative w-full h-full flex items-center justify-center">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-yellow-500 to-red-500 opacity-20 blur-3xl"></div>
-                        <Thermometer className="w-16 h-16 text-red-500 relative z-10" />
-                     </motion.div>
-                  )}
+
                   {viewMode === 'power' && (
-                     <motion.div key="power" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative w-full h-full bg-onyx flex items-center justify-center">
-                         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#F59E0B 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-                         <Zap className="w-20 h-20 text-yellow-500 animate-pulse" />
-                         <div className="absolute bottom-4 text-yellow-500 font-mono text-xs">BACKSIDE POWER DELIVERY ACTIVE</div>
-                     </motion.div>
-                  )}
-                  {viewMode === 'signal' && (
-                     <motion.div key="signal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative w-full h-full bg-gray-900 flex items-center justify-center">
-                         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(90deg, #10B981 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-                         <Activity className="w-20 h-20 text-green-500" />
-                         <div className="absolute bottom-4 text-green-500 font-mono text-xs">PHOTONIC INTERCONNECT: 224Gbps</div>
+                     <motion.div key="power" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative w-full h-full p-12">
+                        <div className="border-l-2 border-b-2 border-white/20 h-full w-full relative">
+                           {/* Voltage Line Graph */}
+                           <svg className="absolute inset-0 w-full h-full overflow-visible">
+                              <motion.path 
+                                 d="M0,300 C100,280 200,320 300,300 S500,250 600,280" 
+                                 fill="none" 
+                                 stroke="#EAB308" 
+                                 strokeWidth="3"
+                                 initial={{ pathLength: 0 }}
+                                 animate={{ pathLength: 1 }}
+                                 transition={{ duration: 2 }}
+                              />
+                           </svg>
+                           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-500/10 border border-yellow-500/50 p-4 rounded-lg backdrop-blur-md">
+                              <div className="text-yellow-500 font-bold text-xl">0.55V</div>
+                              <div className="text-[10px] text-yellow-200/50 font-mono">RAIL STABILITY</div>
+                           </div>
+                        </div>
                      </motion.div>
                   )}
                </AnimatePresence>
             </div>
          </div>
 
-         {/* COLOR BLOCK: ORANGE */}
-         <div className="bg-orange-500 text-white p-12 rounded-3xl mb-20 shadow-xl shadow-orange-500/20">
-            <div className="flex flex-col md:flex-row items-center gap-12">
-               <div className="flex-1">
-                  <h2 className="text-4xl font-bold mb-4">Signal Integrity.</h2>
-                  <p className="text-orange-100 text-lg">Our Graphene-doped interconnects reduce electromigration by 50% compared to traditional copper, ensuring reliable operation at 8.5GHz.</p>
+         {/* 2. RELIABILITY CURVE (MTBF) */}
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-24">
+            <div className="md:col-span-1">
+               <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-cobalt/10 rounded-lg"><ShieldCheck className="text-cobalt" size={24}/></div>
+                  <h2 className="text-2xl font-bold text-onyx">Reliability Curve</h2>
                </div>
-               <div className="bg-white/10 p-8 rounded-full">
-                  <Network className="w-16 h-16 text-white" />
+               <p className="text-onyx/60 leading-relaxed mb-6">
+                  AXON chips utilize self-healing interconnects to minimize electromigration, resulting in a 40% increase in Mean Time Between Failures (MTBF) compared to legacy 3nm silicon.
+               </p>
+               <div className="flex items-center gap-8">
+                  <div>
+                     <div className="text-3xl font-bold text-onyx">10yr+</div>
+                     <div className="text-xs font-mono text-onyx/40 uppercase">Lifespan</div>
+                  </div>
+                  <div>
+                     <div className="text-3xl font-bold text-cobalt">-40%</div>
+                     <div className="text-xs font-mono text-onyx/40 uppercase">Failure Rate</div>
+                  </div>
+               </div>
+            </div>
+            <div className="md:col-span-2 bg-white border border-onyx/10 rounded-2xl p-8 relative overflow-hidden">
+               <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30 pointer-events-none"></div>
+               <div className="h-64 relative flex items-end pb-6 pl-6 border-l border-b border-onyx/20">
+                  {/* AXON CURVE (FLAT/GOOD) */}
+                  <svg className="absolute inset-0 w-full h-full overflow-visible">
+                     <path d="M0,200 C100,200 300,200 600,210" fill="none" stroke="#0047AB" strokeWidth="3" />
+                     <text x="500" y="190" className="text-xs font-bold fill-cobalt">AXON A-1400</text>
+                  </svg>
+                  {/* LEGACY CURVE (STEEP/BAD) */}
+                  <svg className="absolute inset-0 w-full h-full overflow-visible">
+                     <path d="M0,200 C100,200 300,150 600,50" fill="none" stroke="#E5E7EB" strokeWidth="3" strokeDasharray="5 5" />
+                     <text x="500" y="60" className="text-xs font-bold fill-gray-400">LEGACY 3nm</text>
+                  </svg>
+                  <div className="absolute -left-8 top-1/2 -rotate-90 text-xs font-mono text-onyx/40">FAILURE RATE</div>
+                  <div className="absolute bottom-2 right-0 text-xs font-mono text-onyx/40">TIME (YEARS)</div>
                </div>
             </div>
          </div>
 
-         {/* SPECS GRID */}
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+         {/* 3. I/O STANDARDS TABLE */}
+         <div className="mb-24">
+            <div className="flex items-center gap-3 mb-8">
+               <div className="p-2 bg-cobalt/10 rounded-lg"><Cable className="text-cobalt" size={24}/></div>
+               <h2 className="text-2xl font-bold text-onyx">Supported I/O Protocols</h2>
+            </div>
+            
+            <div className="overflow-hidden rounded-xl border border-onyx/10 shadow-sm">
+               <table className="w-full text-left border-collapse">
+                  <thead className="bg-onyx text-white">
+                     <tr>
+                        <th className="p-4 text-xs font-mono uppercase tracking-widest border-r border-white/10">Protocol</th>
+                        <th className="p-4 text-xs font-mono uppercase tracking-widest border-r border-white/10">Version</th>
+                        <th className="p-4 text-xs font-mono uppercase tracking-widest border-r border-white/10">Raw Bandwidth</th>
+                        <th className="p-4 text-xs font-mono uppercase tracking-widest">Target Application</th>
+                     </tr>
+                  </thead>
+                  <tbody className="bg-white">
+                     <tr className="border-b border-onyx/5 hover:bg-surface transition-colors">
+                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">PCI Express</td>
+                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">Gen 6.0</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">64 GT/s</td>
+                        <td className="p-4 text-sm text-onyx/60">GPU Interconnect & NVMe Storage</td>
+                     </tr>
+                     <tr className="border-b border-onyx/5 hover:bg-surface transition-colors">
+                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">CXL</td>
+                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">3.0</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">128 GB/s</td>
+                        <td className="p-4 text-sm text-onyx/60">Cache Coherent Memory Expansion</td>
+                     </tr>
+                     <tr className="border-b border-onyx/5 hover:bg-surface transition-colors">
+                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">UCIe</td>
+                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">1.1</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">32 GT/s</td>
+                        <td className="p-4 text-sm text-onyx/60">Die-to-Die Chiplet Communication</td>
+                     </tr>
+                     <tr className="hover:bg-surface transition-colors">
+                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">Ethernet</td>
+                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">800G</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">800 Gbps</td>
+                        <td className="p-4 text-sm text-onyx/60">Hyperscale Networking Fabric</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+         {/* SPECS GRID (Existing) */}
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 mb-32">
             {SPECS.map((spec, i) => (
-               <motion.div key={spec.id} whileHover={{ y: -5 }} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:border-azure/30 transition-colors">
-                  <div className="font-mono text-xs text-azure mb-2 font-bold">{spec.parameter}</div>
-                  <div className="text-4xl font-bold text-onyx mb-2 tracking-tight">{spec.value}<span className="text-xl text-gray-400 ml-1">{spec.unit}</span></div>
-                  <p className="text-sm text-gray-500 font-medium leading-relaxed">{spec.description}</p>
-               </motion.div>
+               <div key={i} className="border-t border-onyx/10 pt-4 group">
+                  <div className="flex justify-between items-baseline mb-2">
+                     <span className="text-xs font-mono text-cobalt font-bold tracking-widest">{spec.parameter}</span>
+                     <span className="text-sm font-mono text-onyx/40">{spec.id}</span>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-2">
+                     <span className="text-4xl font-bold text-onyx group-hover:text-cobalt transition-colors">{spec.value}</span>
+                     <span className="text-lg text-onyx/40">{spec.unit}</span>
+                  </div>
+                  <p className="text-sm text-onyx/60 font-medium leading-relaxed">{spec.description}</p>
+               </div>
             ))}
          </div>
+
       </div>
     </div>
   );

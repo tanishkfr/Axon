@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Layout from './components/Layout';
 import Navbar from './components/Navbar';
 import SplashScreen from './components/SplashScreen';
@@ -12,10 +12,6 @@ const App = () => {
   const [activePage, setActivePage] = useState('home');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [activePage]);
-
   return (
     <>
       <AnimatePresence>
@@ -25,6 +21,8 @@ const App = () => {
       {!loading && (
         <>
           <Navbar activePage={activePage} setPage={setActivePage} />
+          
+          {/* Layout handles the structure and scrolling */}
           <Layout activePage={activePage} setPage={setActivePage}>
             {activePage === 'home' && <Home setPage={setActivePage} />}
             {activePage === 'specs' && <TechSpecs />}

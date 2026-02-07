@@ -34,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
         style={{ maxWidth: '1400px' }}
       >
         
-        {/* NEW BRANDING */}
+        {/* BRANDING */}
         <button onClick={() => setPage('home')} className="flex items-center gap-3 px-3 group">
            <div className="relative w-8 h-8">
               <svg viewBox="0 0 60 60" fill="none" className="w-full h-full drop-shadow-md">
@@ -75,13 +75,30 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
            })}
         </nav>
 
-        {/* CTA BUTTON */}
+        {/* CTA BUTTON (TRANSFORMING) */}
         <motion.button 
-           animate={{ opacity: isScrolled ? 0 : 1, width: isScrolled ? 0 : "auto", padding: isScrolled ? 0 : "0 24px" }}
            onClick={() => setPage('contact')} 
-           className="bg-onyx text-white text-xs font-bold h-10 rounded-full overflow-hidden flex items-center justify-center hover:bg-azure transition-colors whitespace-nowrap shadow-lg shadow-onyx/20"
+           className="bg-onyx text-white h-10 rounded-full overflow-hidden flex items-center justify-center hover:bg-azure transition-colors shadow-lg shadow-onyx/20 relative"
+           animate={{ 
+             width: isScrolled ? 40 : 130, // Shrink to circle
+             padding: 0
+           }}
         >
-           Start Project
+           {/* Text Label */}
+           <motion.span 
+             className="absolute text-xs font-bold whitespace-nowrap"
+             animate={{ opacity: isScrolled ? 0 : 1, scale: isScrolled ? 0.5 : 1 }}
+           >
+             Start Project
+           </motion.span>
+           
+           {/* Icon Label */}
+           <motion.div
+             className="absolute"
+             animate={{ opacity: isScrolled ? 1 : 0, scale: isScrolled ? 1 : 0.5, rotate: isScrolled ? 0 : -90 }}
+           >
+              <Hexagon size={16} strokeWidth={2.5} />
+           </motion.div>
         </motion.button>
       </motion.header>
     </div>

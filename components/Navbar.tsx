@@ -88,7 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
            onClick={() => setPage('contact')} 
            className="h-10 rounded-full overflow-hidden flex items-center justify-center transition-all shadow-md relative bg-onyx text-white hover:bg-cobalt focus:outline-none"
            animate={{ 
-             width: isScrolled ? 40 : 130, // Shrink to circle
+             width: isScrolled ? 40 : 180, // Shrink to circle
              padding: 0
            }}
         >
@@ -97,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
              className="absolute text-xs font-bold whitespace-nowrap"
              animate={{ opacity: isScrolled ? 0 : 1, scale: isScrolled ? 0.5 : 1 }}
            >
-             Start Project
+             Access PDK Portal
            </motion.span>
            
            {/* Icon Label */}

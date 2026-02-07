@@ -1,24 +1,21 @@
-import React, { useRef } from 'react';
-import { motion, Variants, useScroll, useSpring, useTransform } from 'framer-motion';
-import { ArrowRight, Cpu, Activity, Zap, Layers, Network, Server, ShieldCheck, Box, Crosshair, BarChart3, Radio, Timer, Factory, Package, Truck, TrendingUp, AlertCircle, Info, DollarSign, PieChart, Atom, Brain } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, Variants, useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
+import { ArrowRight, Cpu, Activity, Zap, Layers, Network, Server, ShieldCheck, Box, Crosshair, BarChart3, Radio, Timer, Factory, Package, Truck, TrendingUp, AlertCircle, Info, DollarSign, PieChart, Atom, Brain, Thermometer, Battery } from 'lucide-react';
 
 interface HomeProps {
   setPage: (page: string) => void;
 }
 
 // --- ANIMATION CONFIGURATION ---
-
-// 1. "Apple Ease" for premium feel
 const EASE_PREMIUM = [0.25, 0.1, 0.25, 1.0];
 
-// 2. Hero Orchestration Variants
 const heroContainerVars: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
       staggerChildren: 0.15,
-      delayChildren: 0.3, // Wait for Splash
+      delayChildren: 0.3, 
     }
   }
 };
@@ -43,7 +40,8 @@ const heroButtonVars: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_PREMIUM } }
 };
 
-// 3. Reusable Scroll Reveal Component
+// --- SUB-COMPONENTS ---
+
 const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.ReactNode, delay?: number, className?: string }) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
@@ -56,7 +54,193 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.Reac
   </motion.div>
 );
 
-// 4. NEW: THE AXON METHODOLOGY SECTION
+// 1. VISUAL DEPTH: DEEP ATMOSPHERE BACKGROUND
+const DeepAtmosphere = () => {
+   return (
+      <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-[#0A0A0A] to-black pointer-events-none overflow-hidden">
+        {/* Subtle Dust / Stars Effect */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+        
+        {/* Static Particles for Depth */}
+        {[...Array(20)].map((_, i) => {
+            const size = Math.random() * 2 + 1;
+            return (
+                <div
+                    key={i}
+                    className="absolute bg-white rounded-full opacity-30"
+                    style={{
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        filter: `blur(${Math.random()}px)`
+                    }}
+                />
+            );
+        })}
+        
+        {/* Deep Horizon Glow */}
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-cobalt/10 to-transparent"></div>
+      </div>
+   );
+};
+
+// 2. TRUST: DEPLOYMENT SCENARIOS (CASE STUDIES)
+const DeploymentScenarios = () => {
+   const [activeCase, setActiveCase] = useState(0);
+
+   const cases = [
+      {
+         id: "ai",
+         partner: "NVIDIA H100",
+         title: "AI Training Clusters",
+         desc: "Solved thermal throttling via Backside Power Delivery (BSPDN).",
+         metric: "Thermal Delta",
+         val: "-12°C",
+         unit: "Junction Temp",
+         icon: Thermometer,
+         color: "text-orange-500",
+         bg: "bg-orange-500"
+      },
+      {
+         id: "auto",
+         partner: "TESLA FSD HW5",
+         title: "Autonomous Drive",
+         desc: "Reduced inference latency by 40% using native optical interconnects.",
+         metric: "Inference Latency",
+         val: "4ms",
+         unit: "Per Frame",
+         icon: Zap,
+         color: "text-yellow-400",
+         bg: "bg-yellow-400"
+      },
+      {
+         id: "mobile",
+         partner: "APPLE M3 ULTRA",
+         title: "Mobile Silicon",
+         desc: "12-hour battery life extension via 1.4nm leakage gating.",
+         metric: "Efficiency Gain",
+         val: "+22%",
+         unit: "Watt/Perf",
+         icon: Battery,
+         color: "text-green-500",
+         bg: "bg-green-500"
+      }
+   ];
+
+   return (
+      <section className="py-24 px-6 md:px-20 bg-onyx text-white border-b border-white/10 relative overflow-hidden">
+         {/* Background Grid */}
+         <div className="absolute inset-0 bg-grid-pattern-dark opacity-10 pointer-events-none"></div>
+
+         <div className="max-w-7xl mx-auto relative z-10">
+            <FadeIn>
+               <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                  <div>
+                     <h2 className="text-4xl font-bold tracking-tight mb-2">Deployment Scenarios</h2>
+                     <p className="text-white/40 font-mono text-xs uppercase tracking-widest">/// Validated Production Yields</p>
+                  </div>
+               </div>
+            </FadeIn>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+               
+               {/* LEFT: INTERACTIVE TABS */}
+               <div className="lg:col-span-5 space-y-4">
+                  {cases.map((item, i) => (
+                     <React.Fragment key={i}>
+                        <FadeIn delay={i * 0.1}>
+                           <button 
+                              onClick={() => setActiveCase(i)}
+                              className={`w-full text-left p-6 rounded-xl border transition-all duration-300 group relative overflow-hidden ${
+                                 activeCase === i 
+                                    ? 'bg-white/10 border-white/20' 
+                                    : 'bg-transparent border-white/5 hover:bg-white/5 hover:border-white/10'
+                              }`}
+                           >
+                              {activeCase === i && (
+                                 <motion.div 
+                                    layoutId="activeGlow"
+                                    className="absolute left-0 top-0 bottom-0 w-1 bg-cobalt" 
+                                 />
+                              )}
+                              <div className="flex justify-between items-start mb-2">
+                                 <span className="text-xs font-mono text-white/40 uppercase tracking-widest">{item.partner}</span>
+                                 <item.icon size={16} className={`${activeCase === i ? 'text-white' : 'text-white/20'} transition-colors`} />
+                              </div>
+                              <h3 className={`text-xl font-bold mb-2 ${activeCase === i ? 'text-white' : 'text-white/60'}`}>{item.title}</h3>
+                              <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
+                           </button>
+                        </FadeIn>
+                     </React.Fragment>
+                  ))}
+               </div>
+
+               {/* RIGHT: LIVE METRIC MONITOR */}
+               <div className="lg:col-span-7">
+                   <FadeIn delay={0.3}>
+                      <div className="h-full min-h-[400px] bg-black border border-white/10 rounded-2xl relative p-8 flex flex-col justify-between overflow-hidden">
+                         {/* CRT Scanline Effect */}
+                         <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-20 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
+                         
+                         <div className="relative z-30">
+                            <div className="flex justify-between items-center mb-12 border-b border-white/10 pb-4">
+                               <div className="flex items-center gap-3">
+                                  <Activity className="text-cobalt animate-pulse" size={16} />
+                                  <span className="font-mono text-xs text-cobalt uppercase">Live Telemetry</span>
+                               </div>
+                               <div className="font-mono text-xs text-white/30">ID: {cases[activeCase].partner}</div>
+                            </div>
+
+                            <div className="flex items-end gap-4">
+                               <motion.div 
+                                 key={activeCase}
+                                 initial={{ opacity: 0, y: 20 }}
+                                 animate={{ opacity: 1, y: 0 }}
+                                 transition={{ duration: 0.5 }}
+                               >
+                                  <div className={`text-7xl font-mono font-bold tracking-tighter ${cases[activeCase].color}`}>
+                                     {cases[activeCase].val}
+                                  </div>
+                                  <div className="text-sm font-mono text-white/50 mt-2 uppercase tracking-widest">
+                                     {cases[activeCase].metric}
+                                  </div>
+                               </motion.div>
+                            </div>
+                         </div>
+
+                         {/* Background Graph Animation */}
+                         <div className="absolute bottom-0 left-0 right-0 h-48 opacity-20">
+                            <svg className="w-full h-full" preserveAspectRatio="none">
+                               <motion.path 
+                                  key={activeCase}
+                                  initial={{ d: "M0,100 Q50,100 100,100 T200,100" }}
+                                  animate={{ d: "M0,100 Q50,20 100,50 T200,80 T300,40 T400,90 T500,20 T600,100" }}
+                                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  className={cases[activeCase].color}
+                               />
+                               <motion.path 
+                                  d="M0,100 L600,100" // Baseline
+                                  stroke="white"
+                                  strokeWidth="1"
+                                  strokeDasharray="4 4"
+                                  opacity="0.5"
+                               />
+                            </svg>
+                         </div>
+                      </div>
+                   </FadeIn>
+               </div>
+            </div>
+         </div>
+      </section>
+   );
+}
+
+
 const MethodologySection = () => {
    const containerRef = useRef<HTMLDivElement>(null);
    const { scrollYProgress } = useScroll({
@@ -184,8 +368,11 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
   return (
     <div className="w-full">
       {/* 1. HERO SECTION */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 relative overflow-hidden bg-surface">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 relative overflow-hidden">
          
+         {/* VISUAL DEPTH: DEEP ATMOSPHERE BG */}
+         <DeepAtmosphere />
+
          <motion.div 
            className="max-w-5xl z-10"
            variants={heroContainerVars}
@@ -195,21 +382,21 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
             {/* Step 1: Pill Slide Down */}
             <motion.div 
                variants={heroPillVars}
-               className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-onyx/10 rounded-full shadow-sm mb-8"
+               className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 backdrop-blur-md rounded-full shadow-sm mb-8"
             >
-               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-               <span className="text-[10px] font-bold tracking-widest text-onyx/60 uppercase">Fab 4.2 Online</span>
+               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+               <span className="text-[10px] font-bold tracking-widest text-white/90 uppercase">Fab 4.2 Online</span>
             </motion.div>
 
             {/* Step 2: Masked Text Reveal */}
             <h1 className="text-7xl md:text-[10rem] font-bold leading-[0.85] tracking-tighter mb-10">
                <div className="overflow-hidden">
-                  <motion.div variants={heroTextRevealVars} className="text-onyx">Silicon</motion.div>
+                  <motion.div variants={heroTextRevealVars} className="text-white drop-shadow-xl">Silicon</motion.div>
                </div>
-               <div className="overflow-hidden pt-2 -mt-2 pb-2"> {/* Padding to catch descenders/glows */}
+               <div className="overflow-hidden pt-2 -mt-2 pb-2">
                   <motion.div 
                     variants={heroTextRevealVars} 
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-cobalt to-blue-400"
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-cobalt to-blue-400 drop-shadow-lg"
                   >
                     Evolution.
                   </motion.div>
@@ -221,7 +408,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                variants={heroBlurVars}
                className="flex flex-col gap-8 items-start max-w-xl"
             >
-               <p className="text-xl text-onyx/60 font-medium leading-relaxed">
+               <p className="text-xl text-white/70 font-medium leading-relaxed drop-shadow-sm">
                   The world's first 14 Ångström process node. Fabricated for the post-silicon era with directed self-assembly.
                </p>
                
@@ -231,25 +418,12 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                   whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 71, 171, 0.3)" }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setPage('specs')} 
-                  className="group flex items-center gap-3 px-8 py-4 rounded-full font-bold border border-onyx/10 bg-white/5 backdrop-blur-sm text-onyx transition-colors duration-300 hover:bg-cobalt hover:border-transparent hover:text-white"
+                  className="group flex items-center gap-3 px-8 py-4 rounded-full font-bold border border-white/20 bg-white/10 backdrop-blur-md text-white transition-colors duration-300 hover:bg-cobalt hover:border-transparent"
                >
-                  Technical Data
+                  View Lithography Specs
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300"/>
                </motion.button>
             </motion.div>
-         </motion.div>
-
-         {/* Step 5: Background Graphic Scale Up */}
-         <motion.div 
-            initial={{ opacity: 0, scale: 0.9, rotate: -10 }}
-            animate={{ opacity: 0.1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1.8, ease: "easeOut", delay: 0.5 }}
-            className="absolute right-[-10%] top-[20%] w-[800px] h-[800px] pointer-events-none"
-         >
-            <div className="w-full h-full border-[2px] border-onyx rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
-               <div className="w-[80%] h-[80%] border border-dashed border-onyx rounded-full"></div>
-               <div className="w-[60%] h-[60%] border border-onyx rounded-full"></div>
-            </div>
          </motion.div>
       </section>
 
@@ -319,51 +493,8 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       {/* 3. NEW SECTION: METHODOLOGY */}
       <MethodologySection />
 
-      {/* 4. PARTNER ECOSYSTEM */}
-      <section className="py-24 px-6 md:px-20 bg-surface border-b border-onyx/10">
-         <div className="max-w-7xl mx-auto">
-            <FadeIn>
-               <div className="flex items-center gap-2 mb-12">
-                  <div className="p-2 bg-cobalt/10 rounded-md"><Network className="text-cobalt" size={20} /></div>
-                  <h2 className="text-sm font-bold uppercase tracking-widest text-onyx">Strategic Partners</h2>
-               </div>
-            </FadeIn>
-            
-            <motion.div 
-               className="grid grid-cols-2 md:grid-cols-4 bg-onyx/10 border border-onyx/10 gap-px"
-               initial="hidden"
-               whileInView="visible"
-               viewport={{ once: true, margin: "-100px" }}
-               variants={{
-                  hidden: { opacity: 0 },
-                  visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
-               }}
-            >
-               {[
-                  { code: "NVDA", name: "NVIDIA", contrib: "H100 Integration" },
-                  { code: "AAPL", name: "APPLE", contrib: "M3 Ultra Yield" },
-                  { code: "AMD", name: "AMD", contrib: "Chiplet Architecture" },
-                  { code: "INTC", name: "INTEL", contrib: "Foundry Services" },
-                  { code: "QCOM", name: "QUALCOMM", contrib: "5G Modem RF" },
-                  { code: "TSLA", name: "TESLA", contrib: "FSD HW 5.0" },
-                  { code: "GOOG", name: "GOOGLE", contrib: "TPU v6 Pods" },
-                  { code: "AMZN", name: "AMAZON", contrib: "Graviton 4" },
-               ].map((p, i) => (
-                  <motion.div 
-                     key={i}
-                     variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
-                     className="bg-white p-8 hover:bg-surface transition-colors group flex flex-col justify-between h-48 cursor-default"
-                  >
-                     <div className="text-2xl font-mono font-bold text-onyx/30 group-hover:text-cobalt transition-colors duration-300">[{p.code}]</div>
-                     <div>
-                        <div className="text-xs font-bold text-onyx uppercase tracking-wider mb-1">{p.name}</div>
-                        <div className="text-xs font-mono text-onyx/60">{p.contrib}</div>
-                     </div>
-                  </motion.div>
-               ))}
-            </motion.div>
-         </div>
-      </section>
+      {/* 4. NEW: DEPLOYMENT SCENARIOS (Replaces Partner Logo Dump) */}
+      <DeploymentScenarios />
 
       {/* 5. PREDICTIVE SCALING */}
       <section className="py-24 px-6 md:px-20 bg-onyx text-white border-t border-white/10 relative overflow-hidden">

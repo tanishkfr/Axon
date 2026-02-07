@@ -1,49 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants, useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
-import { ArrowRight, Cpu, Activity, Zap, Layers, Network, Server, ShieldCheck, Box, Crosshair, BarChart3, Radio, Timer, Factory, Package, Truck, TrendingUp, AlertCircle, Info, DollarSign, PieChart, Atom, Brain, Thermometer, Battery } from 'lucide-react';
+import { ArrowRight, Cpu, Activity, Zap, Layers, Network, Server, ShieldCheck, Box, Crosshair, BarChart3, Radio, Timer, Factory, Package, Truck, TrendingUp, AlertCircle, Info, DollarSign, PieChart, Atom, Brain, Thermometer, Battery, Plus } from 'lucide-react';
 
 interface HomeProps {
   setPage: (page: string) => void;
 }
 
-// --- ANIMATION CONFIGURATION (OPTIMIZED FOR SPEED) ---
-const HERO_EASE = "easeOut";
-const HERO_DURATION = 0.5;
-
-const heroContainerVars: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08, // Much faster stagger
-      delayChildren: 0.1, 
-    }
-  }
-};
-
-const heroPillVars: Variants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: { opacity: 1, y: 0, transition: { duration: HERO_DURATION, ease: HERO_EASE } }
-};
-
-const heroTextRevealVars: Variants = {
-  hidden: { y: "110%" },
-  visible: { y: "0%", transition: { duration: HERO_DURATION, ease: HERO_EASE } }
-};
-
-const heroBlurVars: Variants = {
-  hidden: { opacity: 0, filter: 'blur(10px)' },
-  visible: { opacity: 1, filter: 'blur(0px)', transition: { duration: HERO_DURATION, ease: HERO_EASE } }
-};
-
-const heroButtonVars: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: HERO_DURATION, ease: HERO_EASE } }
-};
-
 // --- SUB-COMPONENTS ---
 
-// UPDATED: Global FadeIn with Blur Reveal
+// Global FadeIn with Blur Reveal
 const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.ReactNode, delay?: number, className?: string }) => (
   <motion.div
     initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
@@ -56,133 +21,99 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.Reac
   </motion.div>
 );
 
-// 1. HERO GRAPHIC: THE ORBITAL FOUNDRY
-const OrbitalFoundry = () => {
-   return (
-      <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center md:justify-end">
-         {/* Main Container - Offsets to the right on desktop to balance text */}
-         <div className="relative w-[600px] h-[600px] md:w-[900px] md:h-[900px] md:translate-x-[30%] opacity-40 md:opacity-100 scale-75 md:scale-100">
-            
-            {/* 1. Static Outer Guide Ring */}
-            <div className="absolute inset-0 rounded-full border border-onyx/5"></div>
-            
-            {/* 2. Middle Decorative Dashed Ring */}
-            <div className="absolute inset-[15%] rounded-full border border-dashed border-onyx/10 opacity-50"></div>
+// 1. THE SILICON ECLIPSE HERO
+const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) => {
+  return (
+    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-onyx">
+        
+        {/* 1. ATMOSPHERE (Global Glow) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-cobalt/5 blur-[100px] rounded-full pointer-events-none z-0 mix-blend-screen" />
 
-            {/* 3. The Active Track (Rotating) */}
-            <motion.div 
-               animate={{ rotate: 360 }}
-               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-               className="absolute inset-[20%] rounded-full border border-onyx/10"
+        {/* 2. THE ECLIPSE */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 flex items-center justify-center">
+             {/* The Corona (Spinning & Pulsing Gradient) */}
+             <motion.div 
+                className="w-[300px] h-[300px] md:w-[700px] md:h-[700px] rounded-full bg-[conic-gradient(from_180deg,transparent_0%,#0047AB_40%,#00FFFF_50%,#0047AB_60%,transparent_100%)] blur-xl"
+                animate={{ 
+                    rotate: 360,
+                    scale: [1, 1.1, 1],
+                    opacity: [0.3, 0.7, 0.3]
+                }}
+                transition={{ 
+                    rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+                    scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                    opacity: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+                }}
+             />
+             
+             {/* The Occlusion (Black Disc) - Creates the Ring effect */}
+             <div className="absolute w-[296px] h-[296px] md:w-[694px] md:h-[694px] bg-onyx rounded-full z-10 shadow-[0_0_50px_rgba(0,0,0,1)]" />
+             
+             {/* Inner Rim Glow (Static accent) */}
+             <div className="absolute w-[296px] h-[296px] md:w-[694px] md:h-[694px] rounded-full shadow-[inset_0_0_40px_rgba(0,71,171,0.8)] z-20 pointer-events-none mix-blend-screen" />
+        </div>
+
+        {/* 3. CONTENT (Mix Blend Mode) */}
+        <div className="relative z-30 max-w-7xl mx-auto px-6 flex flex-col items-center text-center mix-blend-exclusion pointer-events-none">
+            
+            <motion.div
+               initial="hidden"
+               animate="visible"
+               variants={{
+                 hidden: { opacity: 0 },
+                 visible: {
+                   opacity: 1,
+                   transition: {
+                     staggerChildren: 0.1,
+                     delayChildren: 0.2
+                   }
+                 }
+               }}
+               className="py-8"
             >
-               {/* The Traveler (Silicon Die) */}
-               {/* Positioned at the very top edge of the track */}
-               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-24 flex flex-col items-center justify-center">
-                  {/* The Die Itself */}
-                  <div className="w-12 h-16 bg-white/40 backdrop-blur-md border-2 border-cobalt rounded-lg shadow-[0_0_40px_rgba(0,71,171,0.3)] relative overflow-hidden">
-                     {/* Internal Tech Details */}
-                     <div className="absolute inset-0 bg-cobalt/5"></div>
-                     <div className="absolute top-1 right-1 w-2 h-2 border-r border-t border-cobalt/50"></div>
-                     <div className="absolute bottom-1 left-1 w-2 h-2 border-l border-b border-cobalt/50"></div>
-                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-px bg-cobalt/20"></div>
-                  </div>
-                  {/* Connector Line to Center */}
-                  <div className="w-px h-10 bg-gradient-to-b from-cobalt/50 to-transparent absolute top-full left-1/2"></div>
-               </div>
+                <motion.h1 
+                  variants={{
+                    hidden: { opacity: 0, y: 40 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+                  }}
+                  className="text-6xl md:text-[13rem] font-bold leading-[0.8] tracking-tighter text-white mb-6 select-none"
+                >
+                    Silicon<br/>Evolution
+                </motion.h1>
+                
+                <motion.p 
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+                  }}
+                  className="text-lg md:text-2xl text-white/90 font-light tracking-widest uppercase max-w-2xl mx-auto"
+                >
+                   14 Ångström Precision
+                </motion.p>
             </motion.div>
+        </div>
 
-            {/* 4. Center Core Hub */}
-            <div className="absolute inset-[45%] rounded-full bg-white border border-onyx/10 shadow-xl flex items-center justify-center">
-               <div className="w-32 h-32 rounded-full border border-dashed border-onyx/20 animate-[spin_60s_linear_infinite_reverse]"></div>
-            </div>
+        {/* 4. INTERACTION (Pointer Events Auto) */}
+        <motion.div
+           initial={{ opacity: 0, scale: 0.9 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 0.5, delay: 0.8 }}
+           className="relative z-40 mt-12"
+        >
+           <button 
+              onClick={() => setPage('specs')}
+              className="px-10 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(255,255,255,0.3)] flex items-center gap-2"
+           >
+              Explore Datasheet
+              <ArrowRight size={18} />
+           </button>
+        </motion.div>
 
-            {/* 5. Floating Particles (Subtle) */}
-            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-cobalt rounded-full opacity-20 animate-pulse"></div>
-            <div className="absolute bottom-1/3 right-1/4 w-3 h-3 bg-blue-400 rounded-full opacity-10 animate-pulse delay-700"></div>
-         </div>
-      </div>
-   );
+    </section>
+  );
 };
 
-// 1.2 GLITCH TEXT HEADLINE (Fix: Text Cropping)
-const GlitchHeadline = () => {
-   const line1 = "Silicon.";
-   const line2 = "Reimagined.";
-
-   const charVariants = {
-      hidden: { opacity: 0, y: 50 },
-      visible: (i: number) => ({
-         opacity: 1,
-         y: 0,
-         transition: { delay: i * 0.02, duration: 0.5, ease: "easeOut" } // Faster char reveal
-      })
-   };
-
-   // Glitch shake animation
-   const glitchAnim = {
-      x: [0, -2, 2, -1, 1, 0],
-      transition: { duration: 0.2, delay: 1, repeat: 1, repeatDelay: 5 }
-   };
-
-   return (
-      <h1 className="text-7xl md:text-[9rem] font-bold leading-[0.85] tracking-tighter mb-10">
-         {/* Line 1: Silicon. */}
-         {/* FIX: Added py-4 -my-4 to prevent clipping */}
-         <div className="block overflow-hidden py-4 -my-4 text-onyx">
-            {line1.split("").map((char, i) => (
-               <motion.span
-                  key={i}
-                  custom={i}
-                  variants={charVariants}
-                  className="inline-block"
-               >
-                  {char}
-               </motion.span>
-            ))}
-         </div>
-
-         {/* Line 2: Reimagined. */}
-         {/* FIX: Added py-4 -my-4 to prevent clipping */}
-         <div className="block overflow-hidden py-4 -my-4">
-            <motion.div 
-               className="inline-block"
-               animate={glitchAnim}
-            >
-               {line2.split("").map((char, i) => (
-                  <motion.span
-                     key={i}
-                     custom={i + line1.length} // Delay based on prev line
-                     variants={charVariants}
-                     className="inline-block"
-                     initial={{ color: "#0A0A0A" }} // Start Onyx
-                     animate={{ 
-                        color: ["#0A0A0A", "#0047AB", "#0047AB"], // Transition to Cobalt
-                        textShadow: [
-                           "0px 0px 0px rgba(0,0,0,0)",
-                           "2px 2px 0px rgba(0,71,171,0.2)", 
-                           "0px 0px 0px rgba(0,0,0,0)"
-                        ]
-                     }}
-                     transition={{
-                        color: { delay: 1.0 + (i * 0.05), duration: 0.5 },
-                        textShadow: { delay: 1.0 + (i * 0.05), duration: 0.2 }
-                     }}
-                     style={{
-                        backgroundClip: 'text',
-                     }}
-                  >
-                     <span className={i > 3 ? "text-transparent bg-clip-text bg-gradient-to-r from-cobalt to-blue-500" : ""}>
-                        {char}
-                     </span>
-                  </motion.span>
-               ))}
-            </motion.div>
-         </div>
-      </h1>
-   );
-};
-
-// 2. NEW: ARCHITECTURAL PILLARS (Replaces Feature Deck)
+// 2. REPLACED: ARCHITECTURAL PILLARS (Replaces Feature Deck)
 const ArchitecturalPillars = () => {
    const [activeTab, setActiveTab] = useState(0);
 
@@ -736,61 +667,8 @@ const ParallaxIcon = ({ Icon, delay }: { Icon: React.ElementType, delay: number 
 const Home: React.FC<HomeProps> = ({ setPage }) => {
   return (
     <div className="w-full">
-      {/* 1. HERO SECTION */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 relative overflow-hidden bg-[#FAFAFA]">
-         
-         {/* VISUAL DEPTH: ORBITAL FOUNDRY (Replaces Fluid Optics) */}
-         <OrbitalFoundry />
-
-         <motion.div 
-           className="max-w-5xl z-10 relative"
-           variants={heroContainerVars}
-           initial="hidden"
-           animate="visible"
-         >
-            {/* GLASSMORPHIC TYPOGRAPHY PANEL */}
-            <div className="relative">
-                {/* Backdrop Panel - Desktop Only */}
-                <div className="hidden md:block absolute -inset-8 bg-white/40 backdrop-blur-md rounded-[2.5rem] border border-white/20 shadow-sm opacity-100"></div>
-
-                <div className="relative z-10">
-                    {/* Step 1: Pill Slide Down (Dark Text) */}
-                    <motion.div 
-                    variants={heroPillVars}
-                    className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-onyx/10 rounded-full shadow-sm mb-8"
-                    >
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-[10px] font-bold tracking-widest text-onyx/80 uppercase">Fab 4.2 Online</span>
-                    </motion.div>
-
-                    {/* Step 2: GLITCH HEADLINE */}
-                    <GlitchHeadline />
-
-                    {/* Step 3: Paragraph Blur In */}
-                    <motion.div 
-                    variants={heroBlurVars}
-                    className="flex flex-col gap-8 items-start max-w-xl"
-                    >
-                    <p className="text-xl text-onyx/60 font-medium leading-relaxed">
-                        The world's first 14 Ångström process node. Fabricated for the post-silicon era with directed self-assembly.
-                    </p>
-                    
-                    {/* Step 4: Button Slide Up (Glassmorphic Outline) */}
-                    <motion.button 
-                        variants={heroButtonVars}
-                        whileHover={{ scale: 1.02, boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => setPage('specs')} 
-                        className="group flex items-center gap-3 px-8 py-4 rounded-full font-bold border border-onyx/10 bg-white/40 backdrop-blur-md text-onyx transition-all duration-300 hover:bg-onyx hover:text-white"
-                    >
-                        View Lithography Specs
-                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300"/>
-                    </motion.button>
-                    </motion.div>
-                </div>
-            </div>
-         </motion.div>
-      </section>
+      {/* 1. THE SILICON ECLIPSE HERO */}
+      <SiliconEclipseHero setPage={setPage} />
 
       {/* 2. REPLACED: ARCHITECTURAL PILLARS */}
       <ArchitecturalPillars />

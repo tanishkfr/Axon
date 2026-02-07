@@ -6,38 +6,39 @@ interface HomeProps {
   setPage: (page: string) => void;
 }
 
-// --- ANIMATION CONFIGURATION ---
-const EASE_PREMIUM = [0.25, 0.1, 0.25, 1.0];
+// --- ANIMATION CONFIGURATION (OPTIMIZED FOR SPEED) ---
+const HERO_EASE = "easeOut";
+const HERO_DURATION = 0.5;
 
 const heroContainerVars: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3, 
+      staggerChildren: 0.08, // Much faster stagger
+      delayChildren: 0.1, 
     }
   }
 };
 
 const heroPillVars: Variants = {
   hidden: { opacity: 0, y: -20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_PREMIUM } }
+  visible: { opacity: 1, y: 0, transition: { duration: HERO_DURATION, ease: HERO_EASE } }
 };
 
 const heroTextRevealVars: Variants = {
   hidden: { y: "110%" },
-  visible: { y: "0%", transition: { duration: 0.8, ease: EASE_PREMIUM } }
+  visible: { y: "0%", transition: { duration: HERO_DURATION, ease: HERO_EASE } }
 };
 
 const heroBlurVars: Variants = {
   hidden: { opacity: 0, filter: 'blur(10px)' },
-  visible: { opacity: 1, filter: 'blur(0px)', transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { opacity: 1, filter: 'blur(0px)', transition: { duration: HERO_DURATION, ease: HERO_EASE } }
 };
 
 const heroButtonVars: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_PREMIUM } }
+  visible: { opacity: 1, y: 0, transition: { duration: HERO_DURATION, ease: HERO_EASE } }
 };
 
 // --- SUB-COMPONENTS ---
@@ -47,55 +48,136 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.Reac
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.8, delay, ease: EASE_PREMIUM }}
+    transition={{ duration: 0.6, delay, ease: "easeOut" }}
     className={className}
   >
     {children}
   </motion.div>
 );
 
-// 1. VISUAL DEPTH: FLUID OPTICS (Updated: Organic Refracted Light)
-const FluidOptics = () => {
+// 1. HERO GRAPHIC: THE ORBITAL FOUNDRY
+const OrbitalFoundry = () => {
    return (
-      <div className="absolute inset-0 w-full h-full bg-[#FAFAFA] pointer-events-none overflow-hidden">
-        {/* Noise Texture - Grounding Grain */}
-        <div 
-          className="absolute inset-0 z-20 opacity-[0.03] mix-blend-multiply pointer-events-none"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-        ></div>
-        
-        {/* Blob 1: Blue - Top Left Drift */}
-        <motion.div
-           animate={{
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-              scale: [1, 1.2, 1],
-           }}
-           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-           className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-blue-400/20 rounded-full blur-[100px] mix-blend-multiply"
-        />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center md:justify-end">
+         {/* Main Container - Offsets to the right on desktop to balance text */}
+         <div className="relative w-[600px] h-[600px] md:w-[900px] md:h-[900px] md:translate-x-[30%] opacity-40 md:opacity-100 scale-75 md:scale-100">
+            
+            {/* 1. Static Outer Guide Ring */}
+            <div className="absolute inset-0 rounded-full border border-onyx/5"></div>
+            
+            {/* 2. Middle Decorative Dashed Ring */}
+            <div className="absolute inset-[15%] rounded-full border border-dashed border-onyx/10 opacity-50"></div>
 
-        {/* Blob 2: Purple - Bottom Right Drift */}
-        <motion.div
-           animate={{
-              x: [0, -60, 0],
-              y: [0, -40, 0],
-              scale: [1.1, 0.9, 1.1],
-           }}
-           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-           className="absolute bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-purple-300/20 rounded-full blur-[120px] mix-blend-multiply"
-        />
+            {/* 3. The Active Track (Rotating) */}
+            <motion.div 
+               animate={{ rotate: 360 }}
+               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+               className="absolute inset-[20%] rounded-full border border-onyx/10"
+            >
+               {/* The Traveler (Silicon Die) */}
+               {/* Positioned at the very top edge of the track */}
+               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-24 flex flex-col items-center justify-center">
+                  {/* The Die Itself */}
+                  <div className="w-12 h-16 bg-white/40 backdrop-blur-md border-2 border-cobalt rounded-lg shadow-[0_0_40px_rgba(0,71,171,0.3)] relative overflow-hidden">
+                     {/* Internal Tech Details */}
+                     <div className="absolute inset-0 bg-cobalt/5"></div>
+                     <div className="absolute top-1 right-1 w-2 h-2 border-r border-t border-cobalt/50"></div>
+                     <div className="absolute bottom-1 left-1 w-2 h-2 border-l border-b border-cobalt/50"></div>
+                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-px bg-cobalt/20"></div>
+                  </div>
+                  {/* Connector Line to Center */}
+                  <div className="w-px h-10 bg-gradient-to-b from-cobalt/50 to-transparent absolute top-full left-1/2"></div>
+               </div>
+            </motion.div>
 
-        {/* Blob 3: Cyan - Center Pulse */}
-        <motion.div
-           animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.6, 0.3]
-           }}
-           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-300/20 rounded-full blur-[100px] mix-blend-multiply"
-        />
+            {/* 4. Center Core Hub */}
+            <div className="absolute inset-[45%] rounded-full bg-white border border-onyx/10 shadow-xl flex items-center justify-center">
+               <div className="w-32 h-32 rounded-full border border-dashed border-onyx/20 animate-[spin_60s_linear_infinite_reverse]"></div>
+            </div>
+
+            {/* 5. Floating Particles (Subtle) */}
+            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-cobalt rounded-full opacity-20 animate-pulse"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-3 h-3 bg-blue-400 rounded-full opacity-10 animate-pulse delay-700"></div>
+         </div>
       </div>
+   );
+};
+
+// 1.2 GLITCH TEXT HEADLINE (Fix: Text Cropping)
+const GlitchHeadline = () => {
+   const line1 = "Silicon.";
+   const line2 = "Reimagined.";
+
+   const charVariants = {
+      hidden: { opacity: 0, y: 50 },
+      visible: (i: number) => ({
+         opacity: 1,
+         y: 0,
+         transition: { delay: i * 0.02, duration: 0.5, ease: "easeOut" } // Faster char reveal
+      })
+   };
+
+   // Glitch shake animation
+   const glitchAnim = {
+      x: [0, -2, 2, -1, 1, 0],
+      transition: { duration: 0.2, delay: 1, repeat: 1, repeatDelay: 5 }
+   };
+
+   return (
+      <h1 className="text-7xl md:text-[9rem] font-bold leading-[0.85] tracking-tighter mb-10">
+         {/* Line 1: Silicon. */}
+         {/* FIX: Added py-4 -my-4 to prevent clipping */}
+         <div className="block overflow-hidden py-4 -my-4 text-onyx">
+            {line1.split("").map((char, i) => (
+               <motion.span
+                  key={i}
+                  custom={i}
+                  variants={charVariants}
+                  className="inline-block"
+               >
+                  {char}
+               </motion.span>
+            ))}
+         </div>
+
+         {/* Line 2: Reimagined. */}
+         {/* FIX: Added py-4 -my-4 to prevent clipping */}
+         <div className="block overflow-hidden py-4 -my-4">
+            <motion.div 
+               className="inline-block"
+               animate={glitchAnim}
+            >
+               {line2.split("").map((char, i) => (
+                  <motion.span
+                     key={i}
+                     custom={i + line1.length} // Delay based on prev line
+                     variants={charVariants}
+                     className="inline-block"
+                     initial={{ color: "#0A0A0A" }} // Start Onyx
+                     animate={{ 
+                        color: ["#0A0A0A", "#0047AB", "#0047AB"], // Transition to Cobalt
+                        textShadow: [
+                           "0px 0px 0px rgba(0,0,0,0)",
+                           "2px 2px 0px rgba(0,71,171,0.2)", 
+                           "0px 0px 0px rgba(0,0,0,0)"
+                        ]
+                     }}
+                     transition={{
+                        color: { delay: 1.0 + (i * 0.05), duration: 0.5 },
+                        textShadow: { delay: 1.0 + (i * 0.05), duration: 0.2 }
+                     }}
+                     style={{
+                        backgroundClip: 'text',
+                     }}
+                  >
+                     <span className={i > 3 ? "text-transparent bg-clip-text bg-gradient-to-r from-cobalt to-blue-500" : ""}>
+                        {char}
+                     </span>
+                  </motion.span>
+               ))}
+            </motion.div>
+         </div>
+      </h1>
    );
 };
 
@@ -431,7 +513,7 @@ const MethodologySection = () => {
                            initial={{ opacity: 0, x: -50 }}
                            whileInView={{ opacity: 1, x: 0 }}
                            viewport={{ once: true, margin: "-100px" }}
-                           transition={{ duration: 0.8, delay: i * 0.1, ease: EASE_PREMIUM }}
+                           transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
                            className="text-left md:text-right"
                         >
                            <h3 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">{step.title}</h3>
@@ -496,8 +578,8 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       {/* 1. HERO SECTION */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 pt-20 relative overflow-hidden bg-[#FAFAFA]">
          
-         {/* VISUAL DEPTH: FLUID OPTICS */}
-         <FluidOptics />
+         {/* VISUAL DEPTH: ORBITAL FOUNDRY (Replaces Fluid Optics) */}
+         <OrbitalFoundry />
 
          <motion.div 
            className="max-w-5xl z-10 relative"
@@ -520,20 +602,8 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                     <span className="text-[10px] font-bold tracking-widest text-onyx/80 uppercase">Fab 4.2 Online</span>
                     </motion.div>
 
-                    {/* Step 2: Masked Text Reveal (Dark Text) */}
-                    <h1 className="text-7xl md:text-[10rem] font-bold leading-[0.85] tracking-tighter mb-10 text-onyx">
-                    <div className="overflow-hidden">
-                        <motion.div variants={heroTextRevealVars}>Silicon</motion.div>
-                    </div>
-                    <div className="overflow-hidden pt-2 -mt-2 pb-2">
-                        <motion.div 
-                            variants={heroTextRevealVars} 
-                            className="text-transparent bg-clip-text bg-gradient-to-r from-onyx via-gray-700 to-onyx"
-                        >
-                            Evolution.
-                        </motion.div>
-                    </div>
-                    </h1>
+                    {/* Step 2: GLITCH HEADLINE */}
+                    <GlitchHeadline />
 
                     {/* Step 3: Paragraph Blur In */}
                     <motion.div 
@@ -561,7 +631,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
          </motion.div>
       </section>
 
-      {/* 2. FEATURE DECK */}
+      {/* 2. FEATURE DECK - HOLOGRAPHIC OVERHAUL */}
       <section className="py-32 px-6 md:px-20 bg-onyx text-white border-y border-white/10 relative overflow-hidden">
          <div className="absolute inset-0 bg-grid-pattern-dark opacity-10 pointer-events-none"></div>
          
@@ -588,31 +658,37 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                     <FadeIn delay={i * 0.1}>
                        <motion.div 
                           whileHover={{ y: -5, borderColor: '#0047AB' }}
-                          className="group h-[400px] bg-white/5 border border-white/10 rounded-xl p-8 relative overflow-hidden transition-all duration-300"
+                          className="group h-[450px] bg-white/5 border border-white/10 rounded-xl p-8 relative overflow-hidden transition-all duration-300 flex flex-col items-center justify-center text-center"
                        >
                           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-0"></div>
                           
-                          <div className="relative z-10 h-full flex flex-col justify-between">
-                             <div className="flex justify-between items-start">
-                                <item.icon className="text-white/50 group-hover:text-cobalt transition-colors" size={32} />
-                                <div className="opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
-                                   <ArrowRight className="text-cobalt" />
-                                </div>
-                             </div>
+                          {/* Centered Graphic Hero */}
+                          <div className="relative z-10 flex flex-col items-center">
+                             <motion.div
+                               whileHover={{ scale: 1.1 }}
+                               transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                               className="mb-8 relative"
+                             >
+                                <div className="absolute inset-0 bg-cobalt/20 blur-xl rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                <item.icon 
+                                   size={80} 
+                                   strokeWidth={1}
+                                   className="text-white group-hover:text-cobalt transition-colors duration-500 drop-shadow-[0_0_15px_rgba(0,71,171,0.5)]" 
+                                />
+                             </motion.div>
 
-                             <div>
-                                <h3 className="text-2xl font-bold mb-1">{item.title}</h3>
-                                <div className="w-full h-px bg-white/20 my-4 group-hover:bg-cobalt transition-colors"></div>
-                                
-                                <div className="grid grid-cols-2 gap-4">
-                                   <div>
-                                      <div className="text-[10px] text-white/40 font-mono uppercase mb-1">Specification</div>
-                                      <div className="text-xl font-mono font-bold text-cobalt">{item.spec}</div>
-                                   </div>
-                                   <div className="opacity-50 group-hover:opacity-100 transition-opacity">
-                                      <div className="text-[10px] text-white/40 font-mono uppercase mb-1">Metric</div>
-                                      <div className="text-sm font-mono text-white">{item.sub}</div>
-                                   </div>
+                             <h3 className="text-3xl font-bold mb-6">{item.title}</h3>
+                             
+                             <div className="w-12 h-px bg-white/20 mb-6 group-hover:bg-cobalt transition-colors"></div>
+                             
+                             <div className="grid grid-cols-2 gap-8 w-full">
+                                <div>
+                                   <div className="text-[10px] text-white/40 font-mono uppercase mb-1">Specification</div>
+                                   <div className="text-2xl font-mono font-bold text-cobalt">{item.spec}</div>
+                                </div>
+                                <div>
+                                   <div className="text-[10px] text-white/40 font-mono uppercase mb-1">Metric</div>
+                                   <div className="text-sm font-mono text-white/80">{item.sub}</div>
                                 </div>
                              </div>
                           </div>

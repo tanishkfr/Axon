@@ -21,7 +21,7 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.Reac
   </motion.div>
 );
 
-// 1. THE SILICON ECLIPSE HERO
+// 1. THE SILICON ECLIPSE HERO (Refined "Breathing Nebula")
 const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) => {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-onyx">
@@ -29,31 +29,41 @@ const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) =>
         {/* 1. ATMOSPHERE (Global Glow) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-cobalt/5 blur-[100px] rounded-full pointer-events-none z-0 mix-blend-screen" />
 
-        {/* 2. THE ECLIPSE */}
+        {/* 2. THE NEBULA ENGINE */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 flex items-center justify-center">
-             {/* The Corona (Spinning & Pulsing Gradient) */}
-             <motion.div 
-                className="w-[300px] h-[300px] md:w-[700px] md:h-[700px] rounded-full bg-[conic-gradient(from_180deg,transparent_0%,#0047AB_40%,#00FFFF_50%,#0047AB_60%,transparent_100%)] blur-xl"
-                animate={{ 
-                    rotate: 360,
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.7, 0.3]
-                }}
-                transition={{ 
-                    rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-                    scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                    opacity: { duration: 5, repeat: Infinity, ease: "easeInOut" }
-                }}
-             />
              
-             {/* The Occlusion (Black Disc) - Creates the Ring effect */}
-             <div className="absolute w-[296px] h-[296px] md:w-[694px] md:h-[694px] bg-onyx rounded-full z-10 shadow-[0_0_50px_rgba(0,0,0,1)]" />
+             {/* Layer 1: Continuous Rotation (The Engine) */}
+             <motion.div
+                className="w-[300px] h-[300px] md:w-[700px] md:h-[700px] flex items-center justify-center"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+             >
+                {/* Layer 2: The Breathing Plasma (Scale & Opacity) */}
+                <motion.div 
+                    className="w-full h-full rounded-full blur-2xl"
+                    style={{
+                        background: "conic-gradient(from 0deg, transparent 0%, #0047AB 40%, #00FFFF 50%, #0047AB 60%, transparent 100%)"
+                    }}
+                    animate={{ 
+                        scale: [1, 1.1, 1],
+                        opacity: [0.4, 0.8, 0.4]
+                    }}
+                    transition={{ 
+                        duration: 4, 
+                        repeat: Infinity, 
+                        ease: "easeInOut" 
+                    }}
+                />
+             </motion.div>
+             
+             {/* The Occlusion (Black Disc) - Creates the Event Horizon */}
+             <div className="absolute w-[296px] h-[296px] md:w-[694px] md:h-[694px] bg-onyx rounded-full z-10 shadow-[0_0_80px_rgba(0,0,0,1)]" />
              
              {/* Inner Rim Glow (Static accent) */}
-             <div className="absolute w-[296px] h-[296px] md:w-[694px] md:h-[694px] rounded-full shadow-[inset_0_0_40px_rgba(0,71,171,0.8)] z-20 pointer-events-none mix-blend-screen" />
+             <div className="absolute w-[296px] h-[296px] md:w-[694px] md:h-[694px] rounded-full shadow-[inset_0_0_60px_rgba(0,71,171,0.6)] z-20 pointer-events-none mix-blend-screen" />
         </div>
 
-        {/* 3. CONTENT (Mix Blend Mode) */}
+        {/* 3. CONTENT (Liquid Chrome Typography) */}
         <div className="relative z-30 max-w-7xl mx-auto px-6 flex flex-col items-center text-center mix-blend-exclusion pointer-events-none">
             
             <motion.div
@@ -76,7 +86,7 @@ const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) =>
                     hidden: { opacity: 0, y: 40 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
                   }}
-                  className="text-6xl md:text-[13rem] font-bold leading-[0.8] tracking-tighter text-white mb-6 select-none"
+                  className="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-6 select-none bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
                 >
                     Silicon<br/>Evolution
                 </motion.h1>
@@ -86,7 +96,7 @@ const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) =>
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
                   }}
-                  className="text-lg md:text-2xl text-white/90 font-light tracking-widest uppercase max-w-2xl mx-auto"
+                  className="text-sm md:text-xl text-white/80 font-mono tracking-[0.2em] uppercase max-w-2xl mx-auto"
                 >
                    14 Ångström Precision
                 </motion.p>

@@ -154,16 +154,18 @@ const TechSpecs: React.FC = () => {
             </div>
          </div>
 
-         {/* 3. I/O STANDARDS TABLE */}
-         <div className="mb-24">
-            <div className="flex items-center gap-3 mb-8">
-               <div className="p-2 bg-cobalt/10 rounded-lg"><Cable className="text-cobalt" size={24}/></div>
-               <h2 className="text-2xl font-bold text-onyx">Supported I/O Protocols</h2>
+         {/* 3. I/O STANDARDS TABLE - NOW DARK THEMED */}
+         <div className="mb-24 bg-onyx text-white rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-grid-pattern-dark opacity-10 pointer-events-none"></div>
+
+            <div className="flex items-center gap-3 mb-8 relative z-10">
+               <div className="p-2 bg-white/10 rounded-lg"><Cable className="text-white" size={24}/></div>
+               <h2 className="text-2xl font-bold text-white">Supported I/O Protocols</h2>
             </div>
             
-            <div className="overflow-hidden rounded-xl border border-onyx/10 shadow-sm">
+            <div className="overflow-hidden rounded-xl border border-white/10 shadow-sm relative z-10">
                <table className="w-full text-left border-collapse">
-                  <thead className="bg-onyx text-white">
+                  <thead className="bg-white/5 text-white">
                      <tr>
                         <th className="p-4 text-xs font-mono uppercase tracking-widest border-r border-white/10">Protocol</th>
                         <th className="p-4 text-xs font-mono uppercase tracking-widest border-r border-white/10">Version</th>
@@ -171,30 +173,30 @@ const TechSpecs: React.FC = () => {
                         <th className="p-4 text-xs font-mono uppercase tracking-widest">Target Application</th>
                      </tr>
                   </thead>
-                  <tbody className="bg-white">
-                     <tr className="border-b border-onyx/5 hover:bg-surface transition-colors">
-                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">PCI Express</td>
-                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">Gen 6.0</td>
-                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">64 GT/s</td>
-                        <td className="p-4 text-sm text-onyx/60">GPU Interconnect & NVMe Storage</td>
+                  <tbody className="bg-transparent text-white">
+                     <tr className="border-b border-white/10 hover:bg-white/5 transition-colors">
+                        <td className="p-4 font-bold text-white border-r border-white/10">PCI Express</td>
+                        <td className="p-4 font-mono text-sm text-white/60 border-r border-white/10">Gen 6.0</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-white/10">64 GT/s</td>
+                        <td className="p-4 text-sm text-white/60">GPU Interconnect & NVMe Storage</td>
                      </tr>
-                     <tr className="border-b border-onyx/5 hover:bg-surface transition-colors">
-                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">CXL</td>
-                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">3.0</td>
-                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">128 GB/s</td>
-                        <td className="p-4 text-sm text-onyx/60">Cache Coherent Memory Expansion</td>
+                     <tr className="border-b border-white/10 hover:bg-white/5 transition-colors">
+                        <td className="p-4 font-bold text-white border-r border-white/10">CXL</td>
+                        <td className="p-4 font-mono text-sm text-white/60 border-r border-white/10">3.0</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-white/10">128 GB/s</td>
+                        <td className="p-4 text-sm text-white/60">Cache Coherent Memory Expansion</td>
                      </tr>
-                     <tr className="border-b border-onyx/5 hover:bg-surface transition-colors">
-                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">UCIe</td>
-                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">1.1</td>
-                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">32 GT/s</td>
-                        <td className="p-4 text-sm text-onyx/60">Die-to-Die Chiplet Communication</td>
+                     <tr className="border-b border-white/10 hover:bg-white/5 transition-colors">
+                        <td className="p-4 font-bold text-white border-r border-white/10">UCIe</td>
+                        <td className="p-4 font-mono text-sm text-white/60 border-r border-white/10">1.1</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-white/10">32 GT/s</td>
+                        <td className="p-4 text-sm text-white/60">Die-to-Die Chiplet Communication</td>
                      </tr>
-                     <tr className="hover:bg-surface transition-colors">
-                        <td className="p-4 font-bold text-onyx border-r border-onyx/5">Ethernet</td>
-                        <td className="p-4 font-mono text-sm text-onyx/60 border-r border-onyx/5">800G</td>
-                        <td className="p-4 font-mono text-sm text-cobalt border-r border-onyx/5">800 Gbps</td>
-                        <td className="p-4 text-sm text-onyx/60">Hyperscale Networking Fabric</td>
+                     <tr className="hover:bg-white/5 transition-colors">
+                        <td className="p-4 font-bold text-white border-r border-white/10">Ethernet</td>
+                        <td className="p-4 font-mono text-sm text-white/60 border-r border-white/10">800G</td>
+                        <td className="p-4 font-mono text-sm text-cobalt border-r border-white/10">800 Gbps</td>
+                        <td className="p-4 text-sm text-white/60">Hyperscale Networking Fabric</td>
                      </tr>
                   </tbody>
                </table>

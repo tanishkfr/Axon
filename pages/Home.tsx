@@ -48,7 +48,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
          </div>
       </section>
 
-      {/* 2. FEATURE DECK (REPLACES SLIDER) */}
+      {/* 2. FEATURE DECK */}
       <section className="py-32 px-6 md:px-20 bg-onyx text-white border-y border-white/10 relative overflow-hidden">
          <div className="absolute inset-0 bg-grid-pattern-dark opacity-10 pointer-events-none"></div>
          
@@ -147,148 +147,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
          </div>
       </section>
 
-      {/* 4. DASHBOARD GRID: YIELD & SUPPLY */}
-      <section className="py-24 px-6 md:px-20 bg-white">
-         <div className="max-w-7xl mx-auto">
-            <h2 className="text-xs font-mono text-onyx/40 uppercase tracking-widest mb-12">/// Manufacturing Intelligence</h2>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-               
-               {/* LITHOGRAPHY YIELD GRAPH */}
-               <div className="border border-onyx/10 rounded-xl p-8 bg-surface">
-                  <div className="flex justify-between items-center mb-8">
-                     <div className="flex items-center gap-2">
-                        <BarChart3 className="text-cobalt" size={20} />
-                        <span className="font-bold text-onyx">Yield Rate</span>
-                     </div>
-                     <div className="text-xs font-mono bg-green-100 text-green-700 px-2 py-1 rounded">+2.4% WoW</div>
-                  </div>
-                  
-                  <div className="h-64 flex items-end justify-between gap-2">
-                     {[45, 52, 49, 60, 58, 65, 72, 70, 75, 82, 85, 88].map((h, i) => (
-                        <div key={i} className="w-full bg-cobalt/10 rounded-t-sm relative group">
-                           <motion.div 
-                              initial={{ height: 0 }}
-                              whileInView={{ height: `${h}%` }}
-                              transition={{ duration: 1, delay: i * 0.05 }}
-                              className="absolute bottom-0 w-full bg-cobalt rounded-t-sm"
-                           >
-                           </motion.div>
-                           <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs font-bold bg-onyx text-white px-2 py-1 rounded transition-opacity">
-                              {h}%
-                           </div>
-                        </div>
-                     ))}
-                  </div>
-                  <div className="mt-4 flex justify-between text-[10px] font-mono text-onyx/40 uppercase">
-                     <span>Wk 01</span>
-                     <span>Wk 12</span>
-                  </div>
-               </div>
-
-               {/* SUPPLY CHAIN GRID */}
-               <div className="border border-onyx/10 rounded-xl overflow-hidden bg-surface">
-                  <div className="p-6 border-b border-onyx/10 bg-white flex justify-between items-center">
-                     <div className="flex items-center gap-2">
-                        <Box className="text-cobalt" size={20} />
-                        <span className="font-bold text-onyx">Supply Chain</span>
-                     </div>
-                     <div className="flex items-center gap-2">
-                         <span className="relative flex h-2 w-2">
-                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                           <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                         </span>
-                         <span className="text-[10px] font-mono text-onyx/50">LIVE</span>
-                     </div>
-                  </div>
-
-                  <table className="w-full text-left">
-                     <thead className="bg-onyx/5 text-[10px] font-mono text-onyx/50 uppercase">
-                        <tr>
-                           <th className="px-6 py-3 font-medium">Material / Unit</th>
-                           <th className="px-6 py-3 font-medium">Source</th>
-                           <th className="px-6 py-3 font-medium text-right">Status</th>
-                        </tr>
-                     </thead>
-                     <tbody className="text-sm">
-                        {[
-                           { name: "300mm Silicon Ingots", source: "Shin-Etsu", status: "Arrived" },
-                           { name: "EUV Photoresist", source: "JSR Corp", status: "In Transit" },
-                           { name: "Pellicle Membranes", source: "Teledyne", status: "QC Check" },
-                           { name: "Fab 1 Output", source: "Internal", status: "Sorting" },
-                           { name: "HBM3e Stacks", source: "SK Hynix", status: "Scheduled" }
-                        ].map((row, i) => (
-                           <tr key={i} className="border-b border-onyx/5 last:border-0 hover:bg-white transition-colors">
-                              <td className="px-6 py-4 font-medium text-onyx">{row.name}</td>
-                              <td className="px-6 py-4 text-onyx/60">{row.source}</td>
-                              <td className="px-6 py-4 text-right">
-                                 <span className={`inline-block px-2 py-1 rounded text-[10px] font-bold uppercase ${
-                                    row.status === 'Arrived' ? 'bg-green-100 text-green-700' :
-                                    row.status === 'In Transit' ? 'bg-blue-100 text-blue-700' :
-                                    'bg-gray-100 text-gray-600'
-                                 }`}>
-                                    {row.status}
-                                 </span>
-                              </td>
-                           </tr>
-                        ))}
-                     </tbody>
-                  </table>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* 5. SUPPLY CHAIN VELOCITY */}
-      <section className="py-24 px-6 md:px-20 bg-white border-t border-onyx/10 relative overflow-hidden">
-         {/* Background accent */}
-         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cobalt/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-         <div className="max-w-7xl mx-auto relative z-10">
-            <div className="flex items-center gap-3 mb-16">
-               <div className="p-2 bg-cobalt/10 rounded-lg"><Timer className="text-cobalt" size={24}/></div>
-               <div>
-                 <h2 className="text-2xl font-bold text-onyx">Supply Chain Velocity</h2>
-                 <p className="text-xs font-mono text-onyx/40 uppercase tracking-widest">End-to-End Latency Tracking</p>
-               </div>
-            </div>
-
-            <div className="relative">
-               {/* Connecting Line (Desktop) */}
-               <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-onyx/5 via-onyx/20 to-onyx/5 -translate-y-1/2 z-0"></div>
-
-               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
-                  {[
-                     { stage: "Raw Silicon", time: "T-48h", icon: Layers, desc: "Ingot Prep" },
-                     { stage: "Fabrication", time: "Processing", icon: Factory, desc: "Lithography" },
-                     { stage: "Packaging", time: "+12h", icon: Package, desc: "CoWoS Stack" },
-                     { stage: "Distribution", time: "+24h", icon: Truck, desc: "Logistics" },
-                  ].map((item, i) => (
-                     <div key={i} className="group">
-                        <div className="flex flex-col items-center text-center">
-                           {/* Icon Node */}
-                           <div className="w-16 h-16 bg-white border border-onyx/10 rounded-full flex items-center justify-center mb-6 relative z-10 group-hover:border-cobalt group-hover:shadow-[0_0_20px_rgba(0,71,171,0.2)] transition-all duration-300">
-                              <item.icon size={24} className="text-onyx/60 group-hover:text-cobalt transition-colors" />
-                              {i === 1 && (
-                                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse border-2 border-white"></div>
-                              )}
-                           </div>
-                           
-                           {/* Data Card */}
-                           <div className="w-full bg-surface border border-onyx/10 p-6 rounded-xl hover:bg-white transition-colors shadow-sm">
-                              <div className="text-2xl font-mono font-bold text-onyx mb-1">{item.time}</div>
-                              <div className="text-xs font-bold uppercase tracking-wider text-cobalt mb-2">{item.stage}</div>
-                              <div className="text-xs text-onyx/40 font-mono">{item.desc}</div>
-                           </div>
-                        </div>
-                     </div>
-                  ))}
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* 6. PREDICTIVE SCALING (NEW) */}
+      {/* 4. PREDICTIVE SCALING (MOVED UP) */}
       <section className="py-24 px-6 md:px-20 bg-onyx text-white border-t border-white/10 relative overflow-hidden">
          <div className="absolute inset-0 bg-grid-pattern-dark opacity-10 pointer-events-none"></div>
 
@@ -356,6 +215,55 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                      <div className="w-2 h-2 bg-white/20 border border-dashed border-white/40 rounded-full"></div>
                      <span className="text-[10px] font-mono text-white/50">AVAILABLE CAP</span>
                   </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* 5. SUPPLY CHAIN VELOCITY (MOVED DOWN) */}
+      <section className="py-24 px-6 md:px-20 bg-white border-t border-onyx/10 relative overflow-hidden">
+         {/* Background accent */}
+         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cobalt/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+         <div className="max-w-7xl mx-auto relative z-10">
+            <div className="flex items-center gap-3 mb-16">
+               <div className="p-2 bg-cobalt/10 rounded-lg"><Timer className="text-cobalt" size={24}/></div>
+               <div>
+                 <h2 className="text-2xl font-bold text-onyx">Supply Chain Velocity</h2>
+                 <p className="text-xs font-mono text-onyx/40 uppercase tracking-widest">End-to-End Latency Tracking</p>
+               </div>
+            </div>
+
+            <div className="relative">
+               {/* Connecting Line (Desktop) */}
+               <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-onyx/5 via-onyx/20 to-onyx/5 -translate-y-1/2 z-0"></div>
+
+               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+                  {[
+                     { stage: "Raw Silicon", time: "T-48h", icon: Layers, desc: "Ingot Prep" },
+                     { stage: "Fabrication", time: "Processing", icon: Factory, desc: "Lithography" },
+                     { stage: "Packaging", time: "+12h", icon: Package, desc: "CoWoS Stack" },
+                     { stage: "Distribution", time: "+24h", icon: Truck, desc: "Logistics" },
+                  ].map((item, i) => (
+                     <div key={i} className="group">
+                        <div className="flex flex-col items-center text-center">
+                           {/* Icon Node */}
+                           <div className="w-16 h-16 bg-white border border-onyx/10 rounded-full flex items-center justify-center mb-6 relative z-10 group-hover:border-cobalt group-hover:shadow-[0_0_20px_rgba(0,71,171,0.2)] transition-all duration-300">
+                              <item.icon size={24} className="text-onyx/60 group-hover:text-cobalt transition-colors" />
+                              {i === 1 && (
+                                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse border-2 border-white"></div>
+                              )}
+                           </div>
+                           
+                           {/* Data Card */}
+                           <div className="w-full bg-surface border border-onyx/10 p-6 rounded-xl hover:bg-white transition-colors shadow-sm">
+                              <div className="text-2xl font-mono font-bold text-onyx mb-1">{item.time}</div>
+                              <div className="text-xs font-bold uppercase tracking-wider text-cobalt mb-2">{item.stage}</div>
+                              <div className="text-xs text-onyx/40 font-mono">{item.desc}</div>
+                           </div>
+                        </div>
+                     </div>
+                  ))}
                </div>
             </div>
          </div>

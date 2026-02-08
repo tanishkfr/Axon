@@ -41,12 +41,12 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
   return (
     <div className="fixed top-0 left-0 w-full z-[100] font-sans">
       
-      {/* 1. TICKER TAPE MARQUEE */}
-      <div className="bg-cobalt text-white h-8 overflow-hidden flex items-center relative z-[101]">
+      {/* 1. TICKER TAPE MARQUEE (Slower & Smaller) */}
+      <div className="bg-cobalt text-white h-6 overflow-hidden flex items-center relative z-[101]">
          <motion.div 
-           className="flex whitespace-nowrap font-mono text-[10px] font-bold tracking-[0.2em] uppercase"
+           className="flex whitespace-nowrap font-mono text-[9px] font-bold tracking-[0.2em] uppercase"
            animate={{ x: "-50%" }}
-           transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+           transition={{ duration: 60, ease: "linear", repeat: Infinity }}
          >
             <div className="flex">
                 {tickerContent}
@@ -121,7 +121,7 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
                         : 'bg-white text-onyx border-white hover:bg-cobalt hover:text-white hover:border-cobalt'
                   }`}
                >
-                  CLIENT PORTAL
+                  PARTNER WITH US
                   <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
                </button>
             </div>
@@ -175,7 +175,7 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setPage }) => {
                         }}
                         className="w-full py-4 bg-white text-onyx font-bold uppercase tracking-widest rounded-full hover:bg-cobalt hover:text-white transition-colors"
                      >
-                        Access Client Portal
+                        Partner with Us
                      </button>
                 </div>
             </motion.div>

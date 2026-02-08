@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setPage }) => {
   // Track scroll progress relative to the main scrollable container
   const { scrollYProgress } = useScroll({ container: mainRef });
   
-  // Smooth out the progress bar animation
+  // Smooth out the progress bar animation (Kept for potential future use or if we re-enable top bar)
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -42,11 +42,12 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setPage }) => {
     <div className="min-h-screen bg-surface text-onyx font-sans overflow-hidden relative selection:bg-cobalt selection:text-white">
       <CustomCursor />
       
-      {/* READING PROGRESS BAR (Top Line) */}
+      {/* READING PROGRESS BAR (Top Line) - Commented out for cleaner UI with new widget
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-cobalt origin-left z-[9999]"
         style={{ scaleX }}
       />
+      */}
 
       {/* GLOBAL NOISE OVERLAY */}
       <div 

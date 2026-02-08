@@ -26,6 +26,19 @@ const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) =>
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-onyx">
         
+        {/* ANIMATION STYLES INJECTED HERE */}
+        <style>
+          {`
+            @keyframes text-shine {
+              0% { background-position: 0% 50%; }
+              100% { background-position: 200% 50%; }
+            }
+            .animate-text-shine {
+              animation: text-shine 3s linear infinite;
+            }
+          `}
+        </style>
+
         {/* 1. ATMOSPHERE (Global Glow) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-cobalt/5 blur-[100px] rounded-full pointer-events-none z-0 mix-blend-screen" />
 
@@ -81,12 +94,13 @@ const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) =>
                }}
                className="py-8"
             >
+                {/* PRISMATIC GRADIENT TEXT */}
                 <motion.h1 
                   variants={{
                     hidden: { opacity: 0, y: 40 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
                   }}
-                  className="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-6 select-none bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+                  className="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-6 select-none bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_auto] animate-text-shine drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                 >
                     Silicon<br/>Evolution
                 </motion.h1>

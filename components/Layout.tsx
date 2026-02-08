@@ -1,6 +1,7 @@
 import React, { ReactNode, useLayoutEffect, useRef } from 'react';
 import CustomCursor from './CustomCursor';
 import Footer from './Footer';
+import ScrollProgress from './ScrollProgress';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 interface LayoutProps {
@@ -31,11 +32,17 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setPage }) => {
     window.scrollTo(0, 0);
   }, [activePage]);
 
+  const scrollToTop = () => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-surface text-onyx font-sans overflow-hidden relative selection:bg-cobalt selection:text-white">
       <CustomCursor />
       
-      {/* READING PROGRESS BAR */}
+      {/* READING PROGRESS BAR (Top Line) */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-cobalt origin-left z-[9999]"
         style={{ scaleX }}
@@ -74,6 +81,10 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setPage }) => {
         <Footer />
         
       </main>
+
+      {/* HIGH-TECH SCROLL INDICATOR */}
+      <ScrollProgress scrollYProgress={scrollYProgress} onScrollToTop={scrollToTop} />
+
     </div>
   );
 };

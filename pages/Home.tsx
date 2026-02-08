@@ -274,9 +274,9 @@ const DeploymentScenarios = () => {
          partner: "NVIDIA H100",
          title: "AI Training Clusters",
          desc: "Solved thermal throttling via Backside Power Delivery (BSPDN).",
-         metric: "Thermal Delta",
-         val: "-12°C",
-         unit: "Junction Temp",
+         stdVal: "87°C",
+         axonVal: "75°C",
+         metric: "Junction Temp",
          icon: Thermometer,
          color: "text-orange-500",
          bg: "bg-orange-500"
@@ -286,9 +286,9 @@ const DeploymentScenarios = () => {
          partner: "TESLA FSD HW5",
          title: "Autonomous Drive",
          desc: "Reduced inference latency by 40% using native optical interconnects.",
+         stdVal: "15ms",
+         axonVal: "4ms",
          metric: "Inference Latency",
-         val: "4ms",
-         unit: "Per Frame",
          icon: Zap,
          color: "text-yellow-400",
          bg: "bg-yellow-400"
@@ -298,9 +298,9 @@ const DeploymentScenarios = () => {
          partner: "APPLE M3 ULTRA",
          title: "Mobile Silicon",
          desc: "12-hour battery life extension via 1.4nm leakage gating.",
-         metric: "Efficiency Gain",
-         val: "+22%",
-         unit: "Watt/Perf",
+         stdVal: "18h",
+         axonVal: "22h",
+         metric: "Battery Life",
          icon: Battery,
          color: "text-green-500",
          bg: "bg-green-500"
@@ -371,7 +371,8 @@ const DeploymentScenarios = () => {
                                <div className="font-mono text-xs text-white/30">ID: {cases[activeCase].partner}</div>
                             </div>
 
-                            <div className="flex items-end gap-4 mb-8">
+                            {/* MAIN COMPARISON DISPLAY (UPDATED LAYOUT) */}
+                            <div className="flex justify-center items-center py-8 mb-4">
                                <AnimatePresence mode="wait">
                                    <motion.div 
                                      key={activeCase}
@@ -379,12 +380,26 @@ const DeploymentScenarios = () => {
                                      animate={{ opacity: 1, y: 0 }}
                                      exit={{ opacity: 0, y: -10 }}
                                      transition={{ duration: 0.3 }}
+                                     className="flex items-center gap-12"
                                    >
-                                      <div className={`text-6xl font-mono font-bold tracking-tighter ${cases[activeCase].color}`}>
-                                         {cases[activeCase].val}
+                                      {/* Left Column (Standard) */}
+                                      <div className="text-right">
+                                         <div className="text-xs font-mono text-white/40 uppercase mb-1">Standard</div>
+                                         <div className="text-3xl font-mono text-white/60 font-light">{cases[activeCase].stdVal}</div>
                                       </div>
-                                      <div className="text-sm font-mono text-white/50 mt-1 uppercase tracking-widest">
-                                         {cases[activeCase].metric}
+
+                                      {/* Center Divider */}
+                                      <div className="w-px h-16 bg-white/20 relative">
+                                         <div className="absolute top-0 -left-1 w-2 h-px bg-white/20"></div> {/* Bracket Top */}
+                                         <div className="absolute bottom-0 -left-1 w-2 h-px bg-white/20"></div> {/* Bracket Bottom */}
+                                      </div>
+
+                                      {/* Right Column (AXON) */}
+                                      <div className="text-left">
+                                         <div className="text-xs font-mono text-cobalt font-bold uppercase mb-1">AXON Core</div>
+                                         <div className={`text-5xl font-mono font-bold tracking-tight ${cases[activeCase].color}`}>
+                                            {cases[activeCase].axonVal}
+                                         </div>
                                       </div>
                                    </motion.div>
                                </AnimatePresence>

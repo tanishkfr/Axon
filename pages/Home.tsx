@@ -24,7 +24,7 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children?: React.Reac
 // 1. THE SILICON ECLIPSE HERO (Refined "Breathing Nebula")
 const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) => {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-onyx">
+    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-onyx pt-24">
         
         {/* ANIMATION STYLES INJECTED HERE */}
         <style>
@@ -40,10 +40,10 @@ const SiliconEclipseHero = ({ setPage }: { setPage: (page: string) => void }) =>
         </style>
 
         {/* 1. ATMOSPHERE (Global Glow) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-cobalt/5 blur-[100px] rounded-full pointer-events-none z-0 mix-blend-screen" />
+        <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-cobalt/5 blur-[100px] rounded-full pointer-events-none z-0 mix-blend-screen" />
 
         {/* 2. THE NEBULA ENGINE */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 flex items-center justify-center">
+        <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 flex items-center justify-center">
              
              {/* Layer 1: Continuous Rotation (The Engine) */}
              <motion.div

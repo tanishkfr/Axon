@@ -136,9 +136,9 @@ const TechSpecs: React.FC = () => {
                                 <button onClick={() => setViewMode('power')} className={`text-left p-4 rounded-xl border transition-all duration-300 ${viewMode === 'power' ? 'bg-cobalt border-cobalt shadow-lg shadow-cobalt/20 scale-[1.02]' : 'bg-white border-onyx/10 hover:border-cobalt/50'}`}>
                                    <div className="flex items-center gap-3 mb-2">
                                       <Zap size={20} className={viewMode === 'power' ? 'text-white' : 'text-onyx/40'} />
-                                      <span className={`font-bold ${viewMode === 'power' ? 'text-white' : 'text-onyx'}`}>Power Grid</span>
+                                      <span className={`font-bold ${viewMode === 'power' ? 'text-white' : 'text-onyx'}`}>Optical Mesh</span>
                                    </div>
-                                   <div className={`text-xs ${viewMode === 'power' ? 'text-white/70' : 'text-onyx/60'}`}>Voltage Droop</div>
+                                   <div className={`text-xs ${viewMode === 'power' ? 'text-white/70' : 'text-onyx/60'}`}>Signal Integrity</div>
                                 </button>
                              </div>
                           </div>
@@ -190,8 +190,8 @@ const TechSpecs: React.FC = () => {
                                             />
                                          </svg>
                                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-500/10 border border-yellow-500/50 p-4 rounded-lg backdrop-blur-md">
-                                            <div className="text-yellow-500 font-bold text-xl">0.55V</div>
-                                            <div className="text-[10px] text-yellow-200/50 font-mono">RAIL STABILITY</div>
+                                            <div className="text-yellow-500 font-bold text-xl">1.6 Tb/s</div>
+                                            <div className="text-[10px] text-yellow-200/50 font-mono">THROUGHPUT</div>
                                          </div>
                                       </div>
                                    </motion.div>

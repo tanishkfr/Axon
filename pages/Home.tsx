@@ -151,9 +151,9 @@ const ArchitecturalPillars = () => {
       },
       {
          id: "02",
-         title: "Backside Power",
-         spec: "PowerVia™ Delivery",
-         desc: "Decoupling signal and power networks. By moving power delivery to the back of the wafer, we eliminate interconnect bottlenecks and reduce voltage droop by >30%.",
+         title: "Silicon Photonics",
+         spec: "Optical I/O Engine",
+         desc: "Replacing copper with light. Our native Silicon Photonics (SiPh) interconnects eliminate electrical resistance, enabling zero-latency data transfer at the speed of light.",
          icon: Zap
       },
       {
@@ -287,11 +287,11 @@ const DeploymentScenarios = () => {
          id: "ai",
          partner: "NVIDIA H100",
          title: "AI Training Clusters",
-         desc: "Solved thermal throttling via Backside Power Delivery (BSPDN).",
-         stdVal: "87°C",
-         axonVal: "75°C",
-         metric: "Junction Temp",
-         icon: Thermometer,
+         desc: "Solved I/O bottlenecks via co-packaged Silicon Photonics (SiPh).",
+         stdVal: "15 pJ/b",
+         axonVal: "2 pJ/b",
+         metric: "Energy Efficiency",
+         icon: Zap,
          color: "text-orange-500",
          bg: "bg-orange-500"
       },
@@ -424,7 +424,7 @@ const DeploymentScenarios = () => {
                          <div className="absolute bottom-0 left-0 right-0 top-[40%] p-8 overflow-hidden flex items-end justify-center">
                             <AnimatePresence mode="wait">
                                 {activeCase === 0 && (
-                                   // CASE 1: THERMAL DROP LINE CHART
+                                   // CASE 1: ENERGY EFFICIENCY (DROP CURVE)
                                    <motion.div 
                                       key="ai"
                                       initial={{ opacity: 0 }}
@@ -466,8 +466,8 @@ const DeploymentScenarios = () => {
                                          </defs>
                                          
                                          {/* Labels */}
-                                         <text x="10" y="25" className="text-[10px] fill-white/40 font-mono">90°C</text>
-                                         <text x="550" y="75" className="text-[10px] fill-orange-500 font-bold font-mono">75°C</text>
+                                         <text x="10" y="25" className="text-[10px] fill-white/40 font-mono">15pJ</text>
+                                         <text x="550" y="75" className="text-[10px] fill-orange-500 font-bold font-mono">2pJ</text>
                                       </svg>
                                    </motion.div>
                                 )}

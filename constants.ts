@@ -25,10 +25,10 @@ export const SPECS: SpecItem[] = [
   },
   { 
     id: "03",
-    parameter: "POWER DELIVERY", 
-    value: "BSPDN", 
+    parameter: "PHOTONICS", 
+    value: "SiPh", 
     unit: "", 
-    description: "Backside Power Delivery Network implementation reduces IR drop by 30%." 
+    description: "Native Silicon Photonics engine enabling light-speed optical I/O directly on-die." 
   },
   { 
     id: "04",

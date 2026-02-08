@@ -57,7 +57,7 @@ const About: React.FC = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                    {[
-                      { name: "Tanishk", role: "Founder & CEO", desc: "Ex-Intel Fellow. Pioneer of Backside Power Delivery.", id: "EXEC_01" },
+                      { name: "Tanishk", role: "Founder & CEO", desc: "Ex-Intel Fellow. Pioneer of Silicon Photonics.", id: "EXEC_01" },
                       { name: "Sarah Chen", role: "CTO", desc: "Lead Architect of the A-1400 Logic Cell Library.", id: "EXEC_02" },
                       { name: "Dr. A. Russo", role: "VP of Manufacturing", desc: "Oversees Fab 4.2 High-NA EUV operations.", id: "EXEC_03" }
                    ].map((leader, i) => (
